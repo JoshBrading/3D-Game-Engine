@@ -41,14 +41,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\VulkanSDK\1.2.189.1\Include;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2-2.0.14\include;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_mixer-2.0.4\include;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_image-2.0.5\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\gfc\simple_logger\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\gfc\simple_json\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\gfc\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\VulkanSDK\1.2.189.1\Lib32;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2-2.0.14\lib\x86;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_mixer-2.0.4\lib\x86;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_image-2.0.5\lib\x86;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_ttf-2.0.15\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\gfc\simple_logger\include;..\gfc\simple_json\include;..\gfc\include;..\include;C:\VulkanSDK\1.2.189.2\Include;..\..\libs\SDL2_ttf-2.0.15\include;..\..\libs\SDL2_mixer-2.0.4\include;..\..\libs\SDL2_image-2.0.5\include;..\..\libs\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\VulkanSDK\1.2.189.2\Lib32;..\..\libs\SDL2_ttf-2.0.15\lib\x86;..\..\libs\SDL2_mixer-2.0.4\lib\x86;..\..\libs\SDL2_image-2.0.5\lib\x86;..\..\libs\SDL2-2.0.16\lib\x86;$(LibraryPath)</LibraryPath>
     <OutDir>..\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\VulkanSDK\1.2.189.1\Include;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2-2.0.14\include;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_mixer-2.0.4\include;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_image-2.0.5\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\gfc\simple_logger\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\gfc\simple_json\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\gfc\include;C:\Users\Josh\Desktop\VulkanTakeTwo\gf3d\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\VulkanSDK\1.2.189.1\Lib32;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2-2.0.14\lib\x86;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_mixer-2.0.4\lib\x86;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_image-2.0.5\lib\x86;C:\Users\Josh\Desktop\VulkanTakeTwo\libs\SDL2_ttf-2.0.15\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\gfc\simple_logger\include;..\gfc\simple_json\include;..\gfc\include;..\include;C:\VulkanSDK\1.2.189.2\Include;..\..\libs\SDL2_ttf-2.0.15\include;..\..\libs\SDL2_mixer-2.0.4\include;..\..\libs\SDL2_image-2.0.5\include;..\..\libs\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\VulkanSDK\1.2.189.2\Lib32;..\..\libs\SDL2_ttf-2.0.15\lib\x86;..\..\libs\SDL2_mixer-2.0.4\lib\x86;..\..\libs\SDL2_image-2.0.5\lib\x86;..\..\libs\SDL2-2.0.16\lib\x86;$(LibraryPath)</LibraryPath>
     <OutDir>..</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -130,6 +130,7 @@
     <ClCompile Include="..\gfc\src\gfc_text.c" />
     <ClCompile Include="..\gfc\src\gfc_types.c" />
     <ClCompile Include="..\gfc\src\gfc_vector.c" />
+    <ClCompile Include="..\src\entity.c" />
     <ClCompile Include="..\src\game.c" />
     <ClCompile Include="..\src\gf3d_camera.c" />
     <ClCompile Include="..\src\gf3d_commands.c" />

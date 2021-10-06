@@ -191,5 +191,8 @@
     <ClCompile Include="..\src\gf3d_vqueues.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\entity.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -11,6 +11,8 @@
 #include "gf3d_camera.h"
 #include "gf3d_texture.h"
 
+#include "entity.h"
+
 int main(int argc,char *argv[])
 {
     int done = 0;
@@ -44,9 +46,19 @@ int main(int argc,char *argv[])
     );
 	slog_sync();
 
+    entity_system_init( 1024 );
+
     // main game loop
     slog("gf3d main loop begin");
 	slog_sync();
+
+    Entity* agumon = entity_new( );
+
+    if ( agumon )
+    {
+        agumon->model = gf3d_model_load( "dino" );
+    }
+
 	model = gf3d_model_load("dino");
 	gfc_matrix_identity(modelMat);
 	model2 = gf3d_model_load("dino");
