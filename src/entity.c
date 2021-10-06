@@ -7,6 +7,10 @@ typedef struct
 {
 	Entity* entity_list; // List of entities
 	Uint32* entity_count; // Number of entities
+	
+	//void* think ( self );
+
+	struct Entity_S* target; // entity to target for weapons
 }EntityManager;
 
 static EntityManager entity_manager = { 0 };
@@ -79,5 +83,16 @@ void entity_draw_all( Uint32 bufferFrame, VkCommandBuffer commandBuffer )
 		}
 		entity_draw( &entity_manager.entity_list[i], bufferFrame, commandBuffer );
 	}
+}
+
+void entity_think ( Entity* self )
+{
+	if ( !self )return;
+	//if ( self->think )self->think ( self );
+}
+
+void entity_think_all ( )
+{
+	//TODO
 }
 
