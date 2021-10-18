@@ -7,6 +7,8 @@
 #include "gf3d_vgraphics.h"
 #include "gf3d_obj_load.h"
 
+#include "entity.h"
+
 typedef struct
 {
     Model               *   model_list;
@@ -100,7 +102,7 @@ void gf3d_model_delete(Model *model)
 {
     int i;
     if (!model)return;
-    
+    if ( !model->_inuse ) return; // not in use, nothing to do
     for (i = 0; i < model->uniformBufferCount; i++)
     {
         vkDestroyBuffer(gf3d_model.device, model->uniformBuffers[i], NULL);
@@ -109,6 +111,7 @@ void gf3d_model_delete(Model *model)
 
     gf3d_mesh_free(model->mesh);
     gf3d_texture_free(model->texture);
+    memset( model, 0, sizeof( Model ) );
 }
 
 void gf3d_model_draw(Model *model,Uint32 bufferFrame, VkCommandBuffer commandBuffer,Matrix4 modelMat)
