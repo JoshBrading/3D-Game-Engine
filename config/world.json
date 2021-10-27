@@ -1,0 +1,9 @@
+{
+	"world":
+	{
+		"rows":"5"
+		"cols":"9"
+		"tile1_model":"tile1"
+		"tile2_model":"tile2"
+	}
+}
