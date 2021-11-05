@@ -1,9 +1,18 @@
 {
 	"world":
 	{
-		"rows":"5"
-		"cols":"9"
-		"tile1_model":"tile1"
-		"tile2_model":"tile2"
+		"rows":5,
+		"cols":9,
+		"tile1_model":"tile1",
+		"tile2_model":"turret_base",
+		"model":"testworld"
+	}
+	"towers":
+	{
+		"t_rifle",
+		"t_grenadier",
+		"t_blocker",
+		"t_support",
+		"t_mechanic"
 	}
 }

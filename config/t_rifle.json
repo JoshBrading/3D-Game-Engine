@@ -1,0 +1,36 @@
+{
+	"tier1":
+	{
+		"model":"t_basic_t1"
+		"texture":"t_basic_t1"
+
+		"name":"Auto Turret",
+		"description":"A basic semi auto turret",
+		"cost":100,
+		"pwr_usage":100,
+		"team":0,
+		"tag":null,
+		"health":100
+
+		"fireRate":10,
+		"damage":10,
+		"projModel":"proj"
+	},
+	"tier2":
+	{
+		"model":"t_basic_t2"
+		"texture":"t_basic_t2"
+
+		"name":"Auto Turret II",
+		"description":"An advanced auto turret",
+		"cost":200,
+		"pwr_usage":100,
+		"team":0,
+		"tag":null,
+		"health":125
+
+		"fireRate":100,
+		"damage":10,
+		"projModel":"proj"
+	}
+}

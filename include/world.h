@@ -14,6 +14,9 @@ typedef struct
     Matrix4 modelMat;
     Model *worldModel;
 
+    Uint32 maxRows;
+    Uint32 maxCols;
+
     List *spawnList;        //entities to spawn
     List *entityList;       //entities that exist in the world
 }World;

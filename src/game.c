@@ -24,7 +24,7 @@ int main(int argc,char *argv[])
     Uint8 validate = 0;
     const Uint8 * keys;
     
-    //World *w;
+    World *w;
     
     for (a = 1; a < argc;a++)
     {
@@ -36,6 +36,7 @@ int main(int argc,char *argv[])
     
     init_logger("gf3d.log");    
     slog("gf3d begin");
+
     gf3d_vgraphics_init(
         "gf3d",                 //program name
         1200,                   //screen width
@@ -44,42 +45,51 @@ int main(int argc,char *argv[])
         0,                      //fullscreen
         validate                //validation
     );
+
 	slog_sync();
     
     entity_system_init(1024);
 
     static_entity_system_init( 1024 );
-    
-    //w = world_load("config/testworld.json");
 
-    for (a = 0; a < 10;a++)
-    {
-        agumon_new(vector3d(a * 10 -50,0,0));
-    }
+    w = world_load("config/world.json");
+
+    //for (a = 0; a < 10;a++)
+    //{
+    //    agumon_new(vector3d(a * 10 -50,0,0));
+    //}
     // main game loop
 	slog_sync();
     gf3d_camera_set_scale(vector3d(1,1,1));
     
     slog("gf3d main loop begin");
     player_new(vector3d(0,-20,0));
+
+    Uint32 lastUpdate = 0;
     while(!done)
     {
-        SDL_PumpEvents();   // update SDL's internal event structures
-        keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
-        entity_think_all();
-        entity_update_all();
-        gf3d_camera_update_view();
-        gf3d_camera_get_view_mat4(gf3d_vgraphics_get_view_matrix());
+        if ( lastUpdate + 10 < SDL_GetTicks( ) ) // Fixed update, every 10ms
+        {
+            lastUpdate = SDL_GetTicks( );
 
-        // configure render command for graphics command pool
-        // for each mesh, get a command and configure it from the pool
-        gf3d_vgraphics_render_start();
+            SDL_PumpEvents( );   // update SDL's internal event structures
+            keys = SDL_GetKeyboardState( NULL ); // get the keyboard state for this frame
+            entity_think_all( );
+            entity_update_all( );
+            static_entity_update_all( );
+            gf3d_camera_update_view( );
+            gf3d_camera_get_view_mat4( gf3d_vgraphics_get_view_matrix( ) );
 
-               // world_draw(w);
-                entity_draw_all();
-            
-        gf3d_vgraphics_render_end();
+            // configure render command for graphics command pool
+            // for each mesh, get a command and configure it from the pool
+            gf3d_vgraphics_render_start( );
 
+            world_draw( w );
+            entity_draw_all( );
+            static_entity_draw_all( );
+
+            gf3d_vgraphics_render_end( );
+        }
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
     }    
     

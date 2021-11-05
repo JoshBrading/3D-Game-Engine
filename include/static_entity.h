@@ -5,11 +5,15 @@
 #include "gf3d_model.h"
 
 
-typedef struct
+typedef struct StaticEntity_S
 {
-	Matrix4 modelMat;
-	Model* model;
+	Uint8       _inuse;     /* < keeps track of memory usage */
+	Matrix4		modelMat;	/* < orientation matrix for the model */
+	Model*		model;		/* < Pointer to the static entity model */
+	char*		tag;		/* < tag to make it easier to know what entity is being interacted with */
+	void       (*update)(struct StaticEntity_S* self); /**<pointer to the update function*/
 
+	Vector3D scale;
 	Vector3D position;
 	Vector3D rotation;
 
@@ -19,31 +23,39 @@ typedef struct
  * @brief initializes the static entity subsystem
  * @param maxEntities the limit on number of entities that can exist at the same time
  */
- void static_entity_system_init( Uint32 maxEntities );
+void static_entity_system_init( Uint32 maxEntities );
 
 /**
- * @brief provide a pointer to a new empty entity
+ * @brief provide a pointer to a new static entity
+ * @param filename of the model to load
+ * @param position to spawn static entity
+ * @param rotation to spawn static entity
  * @return NULL on error or a valid static entity pointer otherwise
  */
-//StaticEntity* static_entity_new( );
+StaticEntity* static_entity_new( char* filename, Vector3D position, Vector3D rotation );
 
 /**
  * @brief free a previously created static entity from memory
  * @param self the static entity in question
  */
- //void static_entity_free( StaticEntity* self );
+void static_entity_free( StaticEntity* self );
 
 
 /**
- * @brief Draw an static entity in the current frame
+ * @brief Draw a static entity in the current frame
  * @param self the static entity in question
  */
- //void static_entity_draw( StaticEntity* self );
+void static_entity_draw( StaticEntity* self );
 
 /**
- * @brief draw ALL active entities
+ * @brief draw ALL active static entities
  */
- //void static_entity_draw_all( );
+void static_entity_draw_all( );
 
+/**
+ * @brief run the update functions for ALL active entities
+ */
+void static_entity_update_all( );
 
+StaticEntity* static_entity_get_by_tag( char* tag );
 #endif // !__STATIC_ENTITY_H__

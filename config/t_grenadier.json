@@ -1,0 +1,38 @@
+{
+	"tier1":
+	{
+		"model":"t_grenadier_t1"
+		"texture":"t_grenadier_t1"
+
+		"name":"Grenadier",
+		"description":"Chucks grenades at the enemy",
+		"cost":150,
+		"pwr_usage":100,
+		"team":0,
+		"tag":null,
+		"health":100
+
+		"weapon":"rifle"
+		"fireRate":10,
+		"damage":10,
+		"projModel":"proj"
+	},
+	"tier2":
+	{
+		"model":"t_grenadier_t1"
+		"texture":"t_grenadier_t2"
+
+		"name":"Grenadier II",
+		"description":"Chucks multiple grenades at the enemy",
+		"cost":300,
+		"pwr_usage":100,
+		"team":0,
+		"tag":null,
+		"health":125
+
+		"weapon":"rifle"
+		"fireRate":100,
+		"damage":10,
+		"projModel":"proj"
+	}
+}
