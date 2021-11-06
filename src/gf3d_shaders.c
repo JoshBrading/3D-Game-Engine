@@ -13,6 +13,7 @@ VkShaderModule gf3d_shaders_create_module(char *shader,size_t size,VkDevice devi
     createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
     createInfo.codeSize = size;
     createInfo.pCode = (const uint32_t*)shader;
+    createInfo.pNext = NULL;
     
     if (vkCreateShaderModule(device, &createInfo, NULL, &module) != VK_SUCCESS)
     {

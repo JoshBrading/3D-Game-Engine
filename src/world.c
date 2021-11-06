@@ -4,6 +4,7 @@
 
 #include "world.h"
 #include "static_entity.h"
+#include "gf3d_camera.h"
 
 World* world_load( char* filename )
 {
@@ -70,11 +71,11 @@ World* world_load( char* filename )
         {
             if ( tileFlip > 0)
             {
-                sEnt = static_entity_new( tile1, vector3d( row * 2, col * 2, 0 ), vector3d( 0, 0, 0 ) );
+                sEnt = static_entity_new( tile1, vector3d( col * 2, row * 2, 0 ), vector3d( 0, 0, 0 ) );
             }
             else
             {
-                sEnt = static_entity_new( tile2, vector3d( row * 2, col * 2, 0 ), vector3d( 0, 0, 0 ) );
+                sEnt = static_entity_new( tile2, vector3d( col * 2, row * 2, 0 ), vector3d( 0, 0, 0 ) );
             }
             //s_ent->tag = tag;
             //slog( "Static Ent Count: %c", s_ent->tag );
@@ -87,6 +88,8 @@ World* world_load( char* filename )
     }
 
     slog( "World: Generating Complete." );
+
+    world_set_camera( world, vector3d( 0, -10, 10 ), vector3d( -150, 0, 0 ) );
 
     //getch( );
     //StaticEntity* sEntTarget = static_entity_get_by_tag( (char*)"test" );
@@ -102,7 +105,7 @@ World* world_load( char* filename )
 
     tower = tower_new( vector3d( 0, 0, 0 ), vector3d( 0, 0, 0 ) );
     enemy = entity_new( );
-    vector3d_copy( enemy->position, vector3d( 0, 10, 0 ) );
+    vector3d_copy( enemy->position, vector3d( 0, 0, 0 ) );
     enemy->tag = "example";
     enemy->team = 1;
     
@@ -113,6 +116,22 @@ World* world_load( char* filename )
   
     sj_free( json );
     return world;
+}
+
+void world_set_camera( World* self, Vector3D position, Vector3D rotation )
+{
+    //Vector3D position;
+    
+    int midPoint = self->maxCols - 1;
+    
+    position.x = midPoint;
+
+    rotation.x = rotation.x * M_PI / 180;
+    rotation.y = rotation.y * M_PI / 180;
+    rotation.z = rotation.z * M_PI / 180;
+
+    gf3d_camera_set_position( position );
+    gf3d_camera_set_rotation( rotation );
 }
 
 void world_draw( World* world )

@@ -31,14 +31,8 @@ void tower_think( Entity* self )
     if ( !self )return;
     self->rotation.x += -0.002;
 
-    if ( self->target == NULL )
-    {
-        tower_get_target( self );
-    }
-    else
-    {
-        slog( self->target->tag );
-    }
+    tower_get_target( self );
+
 }
 
 void tower_get_target( Entity* self )

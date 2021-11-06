@@ -111,6 +111,26 @@ void entity_update( Entity* self )
     if ( !self )return;
     // HANDLE ALL COMMON UPDATE STUFF
 
+    //vector3d_add( self->position, self->position, self->velocity );
+    ////vector3d_add(self->velocity,self->acceleration,self->velocity);
+    //
+    //gfc_matrix_identity( self->modelMat );
+    //gfc_matrix_scale( self->modelMat, self->scale );
+    //
+    //gfc_matrix_rotate( self->modelMat, self->modelMat, self->rotation.z, vector3d( 0, 0, 1 ) );
+    //gfc_matrix_rotate( self->modelMat, self->modelMat, self->rotation.y, vector3d( 0, 1, 0 ) );
+    //gfc_matrix_rotate( self->modelMat, self->modelMat, self->rotation.x, vector3d( 1, 0, 0 ) );
+    //
+    //gfc_matrix_translate( self->modelMat, self->position );
+
+    if ( self->update )self->update( self );
+}
+
+void entity_update_fixed( Entity* self )
+{
+    if ( !self )return;
+    // HANDLE ALL COMMON UPDATE STUFF
+
     vector3d_add( self->position, self->position, self->velocity );
     //vector3d_add(self->velocity,self->acceleration,self->velocity);
 
@@ -123,7 +143,7 @@ void entity_update( Entity* self )
 
     gfc_matrix_translate( self->modelMat, self->position );
 
-    if ( self->update )self->update( self );
+    if ( self->updateFixed )self->updateFixed( self );
 }
 
 void entity_update_all( )
@@ -136,6 +156,19 @@ void entity_update_all( )
             continue;// skip this iteration of the loop
         }
         entity_update( &entity_manager.entity_list[i] );
+    }
+}
+
+void entity_update_fixed_all( )
+{
+    int i;
+    for ( i = 0; i < entity_manager.entity_count; i++ )
+    {
+        if ( !entity_manager.entity_list[i]._inuse )// not used yet
+        {
+            continue;// skip this iteration of the loop
+        }
+        entity_update_fixed( &entity_manager.entity_list[i] );
     }
 }
 
@@ -162,7 +195,7 @@ Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char tagM
         if ( entity_manager.entity_list[i].tag != tagMask && entity_manager.entity_list[i].team != teamMask )
         {
             distance = vector3d_magnitude_between( self->position, entity_manager.entity_list[i].position );
-            slog( "Distance: %f", distance );
+            //slog( "Distance: %f", distance );
             if ( distance < range )
             {
                 range = distance;

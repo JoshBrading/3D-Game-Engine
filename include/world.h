@@ -27,6 +27,9 @@ void world_draw(World *world);
 
 void world_delete(World *world);
 
+void world_set_camera( World* self, Vector3D position, Vector3D rotation );
+
+
 void world_run_updates(World *world);
 
 void world_add_entity(World *world,Entity *entity);

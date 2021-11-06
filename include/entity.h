@@ -12,6 +12,7 @@ typedef struct Entity_S
     Model*              model;      /* <pointer to the entity model to draw  (optional) */
     void               (*think)(struct Entity_S* self); /* <pointer to the think function */
     void               (*update)(struct Entity_S* self); /* <pointer to the update function */
+    void               (*updateFixed)(struct Entity_S* self); /* <pointer to the update fixed function */
     void               (*damage)(struct Entity_S* self, float damage, struct Entity_S* inflictor); /* <pointer to the damage function */
     void               (*onDeath)(struct Entity_S* self); /* <pointer to an funciton to call when the entity dies */
 
@@ -79,6 +80,11 @@ void entity_think_all( );
  * @brief run the update functions for ALL active entities
  */
 void entity_update_all( );
+
+/**
+ * @brief Fixed update runs the update functions for all entities at a fixed rate
+ */
+void entity_update_fixed_all( );
 
 /*
 * @brief returns the closest entity to the player

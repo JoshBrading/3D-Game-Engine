@@ -63,33 +63,39 @@ int main(int argc,char *argv[])
     gf3d_camera_set_scale(vector3d(1,1,1));
     
     slog("gf3d main loop begin");
-    player_new(vector3d(0,-20,0));
+    player_new(vector3d(0,-20,10), vector3d( -175, 0, -45 ) );
 
     Uint32 lastUpdate = 0;
     while(!done)
     {
+        
+
+        SDL_PumpEvents( );   // update SDL's internal event structures
+        keys = SDL_GetKeyboardState( NULL ); // get the keyboard state for this frame
+
+        entity_think_all( );
+        entity_update_all( );
+        
         if ( lastUpdate + 10 < SDL_GetTicks( ) ) // Fixed update, every 10ms
         {
+            entity_update_fixed_all( );
             lastUpdate = SDL_GetTicks( );
 
-            SDL_PumpEvents( );   // update SDL's internal event structures
-            keys = SDL_GetKeyboardState( NULL ); // get the keyboard state for this frame
-            entity_think_all( );
-            entity_update_all( );
-            static_entity_update_all( );
-            gf3d_camera_update_view( );
-            gf3d_camera_get_view_mat4( gf3d_vgraphics_get_view_matrix( ) );
-
-            // configure render command for graphics command pool
-            // for each mesh, get a command and configure it from the pool
-            gf3d_vgraphics_render_start( );
-
-            world_draw( w );
-            entity_draw_all( );
-            static_entity_draw_all( );
-
-            gf3d_vgraphics_render_end( );
         }
+        static_entity_update_all( );
+        gf3d_camera_update_view( );
+        gf3d_camera_get_view_mat4( gf3d_vgraphics_get_view_matrix( ) );
+
+        // configure render command for graphics command pool
+        // for each mesh, get a command and configure it from the pool
+        gf3d_vgraphics_render_start( );
+
+        world_draw( w );
+        entity_draw_all( );
+        static_entity_draw_all( );
+
+        gf3d_vgraphics_render_end( );
+        
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
     }    
     
