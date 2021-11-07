@@ -5,11 +5,11 @@
 #include "world.h"
 #include "static_entity.h"
 #include "gf3d_camera.h"
-
+static World* world = NULL;
 World* world_load( char* filename )
 {
     SJson* json, * wjson;
-    World* world= NULL;
+    //World* world= NULL;
 
     const char* modelName = NULL;
     world= gfc_allocate_array( sizeof( World ), 1 );
@@ -103,17 +103,9 @@ World* world_load( char* filename )
     Entity* enemy;
     Entity* enemy2;
 
-    tower = tower_new( vector3d( 0, 0, 0 ), vector3d( 0, 0, 0 ) );
-    enemy = entity_new( );
-    vector3d_copy( enemy->position, vector3d( 0, 0, 0 ) );
-    enemy->tag = "example";
-    enemy->team = 1;
-    
-    enemy2 = entity_new( );
-    vector3d_copy( enemy2->position, vector3d( 5, 9, 0 ) );
-    enemy2->tag = "another";
-    enemy2->team = 1;
+   // tower = tower_new( vector3d( 0, 0, 0 ), vector3d( 0, 0, 0 ) );
   
+
     sj_free( json );
     return world;
 }
@@ -132,6 +124,11 @@ void world_set_camera( World* self, Vector3D position, Vector3D rotation )
 
     gf3d_camera_set_position( position );
     gf3d_camera_set_rotation( rotation );
+}
+
+World* world_get( )
+{
+    return world;
 }
 
 void world_draw( World* world )

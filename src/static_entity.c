@@ -2,15 +2,7 @@
 #include <string.h>
 
 #include "simple_logger.h"
-
 #include "static_entity.h"
-
-typedef struct
-{
-    StaticEntity*   static_entity_list;
-    Uint32          static_entity_count;
-
-}StaticEntityManager;
 
 StaticEntityManager static_entity_manager = { 0 };
 
@@ -128,15 +120,20 @@ void static_entity_update_all( )
     }
 }
 
-StaticEntity* static_entity_get_by_tag( char* tag )
+StaticEntityManager* static_entity_get_manager( )
 {
-    for ( int i = 0; i < static_entity_manager.static_entity_count; i++ )
-    {
-        if ( static_entity_manager.static_entity_list[i].tag == tag )
-        {
-            return &static_entity_manager.static_entity_list[i];
-        }
-    }
-    slog( "static_entity_get_tag: No entity with tag %s", tag );
-    return NULL;
+    return &static_entity_manager;
 }
+
+//StaticEntity* static_entity_get_by_tag( char* tag )
+//{
+//    for ( int i = 0; i < static_entity_manager.static_entity_count; i++ )
+//    {
+//        if ( static_entity_manager.static_entity_list[i].tag == tag )
+//        {
+//            return &static_entity_manager.static_entity_list[i];
+//        }
+//    }
+//    slog( "static_entity_get_tag: No entity with tag %s", tag );
+//    return NULL;
+//}

@@ -3,6 +3,7 @@
 
 #include "gfc_types.h"
 #include "gf3d_model.h"
+#include "static_entity.h"
 
 
 typedef struct Entity_S
@@ -10,9 +11,13 @@ typedef struct Entity_S
     Uint8               _inuse;     /* <keeps track of memory usage */
     Matrix4             modelMat;   /* <orientation matrix for the model */
     Model*              model;      /* <pointer to the entity model to draw  (optional) */
+
     void               (*think)(struct Entity_S* self); /* <pointer to the think function */
+    void               (*thinkFixed)(struct Entity_S* self); /* <pointer to the think fixed function */
+
     void               (*update)(struct Entity_S* self); /* <pointer to the update function */
     void               (*updateFixed)(struct Entity_S* self); /* <pointer to the update fixed function */
+
     void               (*damage)(struct Entity_S* self, float damage, struct Entity_S* inflictor); /* <pointer to the damage function */
     void               (*onDeath)(struct Entity_S* self); /* <pointer to an funciton to call when the entity dies */
 
@@ -27,6 +32,7 @@ typedef struct Entity_S
 
     struct Entity_S*    parent;     /* <parent entity (optional) */
     struct Entity_S*    target;     /* <entity to target for weapons / ai*/
+    struct Static_Entity_S* staticParent; /* < static parent for towers */
 
     char*               tag;		/* < tag to make it easier to know what entity is being interacted with */
     Uint8               team;       /* < team to make it easier to know what entity is */
@@ -34,6 +40,13 @@ typedef struct Entity_S
 
     void*               data;       /* <IF an entity needs to keep track of extra data, we can do it here */
 }Entity;
+
+typedef struct
+{
+    Entity* entity_list;
+    Uint32  entity_count;
+
+}EntityManager;
 
 /**
  * @brief initializes the entity subsystem
@@ -77,6 +90,11 @@ void entity_think( Entity* self );
 void entity_think_all( );
 
 /**
+ * @brief run the think functions for ALL active entities at a fixed rate
+ */
+void entity_think_fixed_all( );
+
+/**
  * @brief run the update functions for ALL active entities
  */
 void entity_update_all( );
@@ -96,4 +114,5 @@ void entity_update_fixed_all( );
 */
 Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char tagMask );
 
+EntityManager* entity_get_manager( );
 #endif

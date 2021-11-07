@@ -41,7 +41,7 @@ int main(int argc,char *argv[])
         "gf3d",                 //program name
         1200,                   //screen width
         700,                    //screen height
-        vector4d(0.51,0.75,1,1),//background color
+        vector4d(0.51f,0.75f,1.0f,1.0f),//background color
         0,                      //fullscreen
         validate                //validation
     );
@@ -63,7 +63,7 @@ int main(int argc,char *argv[])
     gf3d_camera_set_scale(vector3d(1,1,1));
     
     slog("gf3d main loop begin");
-    player_new(vector3d(0,-20,10), vector3d( -175, 0, -45 ) );
+    player_new(vector3d(0,0,0), vector3d( -175, 0, -45 ) );
 
     Uint32 lastUpdate = 0;
     while(!done)
@@ -79,6 +79,7 @@ int main(int argc,char *argv[])
         if ( lastUpdate + 10 < SDL_GetTicks( ) ) // Fixed update, every 10ms
         {
             entity_update_fixed_all( );
+            entity_think_fixed_all( );
             lastUpdate = SDL_GetTicks( );
 
         }

@@ -23,6 +23,8 @@ typedef struct
 
 World *world_load(char *filename);
 
+World* world_get( );
+
 void world_draw(World *world);
 
 void world_delete(World *world);

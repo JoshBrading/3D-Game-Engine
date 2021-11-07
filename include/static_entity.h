@@ -3,7 +3,7 @@
 
 #include "gfc_matrix.h"
 #include "gf3d_model.h"
-
+#include "entity.h"
 
 typedef struct StaticEntity_S
 {
@@ -13,11 +13,26 @@ typedef struct StaticEntity_S
 	char*		tag;		/* < tag to make it easier to know what entity is being interacted with */
 	void       (*update)(struct StaticEntity_S* self); /**<pointer to the update function*/
 
+	struct Entity_S* child;     /* <child entity (optional) */
+
 	Vector3D scale;
 	Vector3D position;
 	Vector3D rotation;
 
 }StaticEntity;
+
+typedef struct
+{
+	StaticEntity*	static_entity_list;
+	Uint32          static_entity_count;
+
+}StaticEntityManager;
+
+
+/**
+ * @brief Returns a pointer to the static_entity_manager
+ */
+StaticEntityManager* static_entity_get_manager( );
 
 /**
  * @brief initializes the static entity subsystem
@@ -40,7 +55,6 @@ StaticEntity* static_entity_new( char* filename, Vector3D position, Vector3D rot
  */
 void static_entity_free( StaticEntity* self );
 
-
 /**
  * @brief Draw a static entity in the current frame
  * @param self the static entity in question
@@ -57,5 +71,5 @@ void static_entity_draw_all( );
  */
 void static_entity_update_all( );
 
-StaticEntity* static_entity_get_by_tag( char* tag );
+//StaticEntity* static_entity_get_by_tag( char* tag );
 #endif // !__STATIC_ENTITY_H__

@@ -5,13 +5,6 @@
 
 #include "entity.h"
 
-typedef struct
-{
-    Entity* entity_list;
-    Uint32  entity_count;
-
-}EntityManager;
-
 EntityManager entity_manager = { 0 };
 
 void entity_system_close( )
@@ -89,6 +82,12 @@ void entity_draw_all( )
 void entity_think( Entity* self )
 {
     if ( !self )return;
+    if ( self->thinkFixed )self->thinkFixed( self );
+}
+
+void entity_think_fixed( Entity* self )
+{
+    if ( !self )return;
     if ( self->think )self->think( self );
 }
 
@@ -102,6 +101,19 @@ void entity_think_all( )
             continue;// skip this iteration of the loop
         }
         entity_think( &entity_manager.entity_list[i] );
+    }
+}
+
+void entity_think_fixed_all( )
+{
+    int i;
+    for ( i = 0; i < entity_manager.entity_count; i++ )
+    {
+        if ( !entity_manager.entity_list[i]._inuse )// not used yet
+        {
+            continue;// skip this iteration of the loop
+        }
+        entity_think_fixed( &entity_manager.entity_list[i] );
     }
 }
 
@@ -203,11 +215,12 @@ Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char tagM
             }
         }
     }
-    if ( target == NULL )
-    {
-        slog( "entity_get_closest: No entity in range" );
-    }
     return target;
+}
+
+EntityManager* entity_get_manager( )
+{
+    return &entity_manager;
 }
 
 /*eol@eof*/

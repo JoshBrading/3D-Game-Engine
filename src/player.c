@@ -3,82 +3,146 @@
 
 #include "gf3d_camera.h"
 #include "player.h"
+#include "world.h"
+#include "static_entity.h"
+#include "entity.h"
+#include "tower.h"
 
 
-void player_think(Entity *self);
-void player_update(Entity *self);
+void player_think_fixed( Entity* self );
+void player_update_fixed( Entity* self );
+int tower_at_pos( Vector3D position );
+void set_cursor_color( Entity* self );
 
-Entity *player_new(Vector3D position, Vector3D rotation)
+Model* red;
+Model* green;
+Model* blue;
+
+World* world;
+                     // 0 = Cannot spawn
+int cursorState = 1; // 1 = Can spawn
+                     // 2 = Can upgrade
+int lastUpdate = 0;
+Vector3D targetPos;
+
+Entity* player_new( Vector3D position, Vector3D rotation )
 {
-    Entity *ent = NULL;
+    Entity* ent = NULL;
 
-    rotation.x = rotation.x * M_PI / 180;
-    rotation.y = rotation.y * M_PI / 180;
-    rotation.z = rotation.z * M_PI / 180;
-    
-    ent = entity_new();
-    if (!ent)
+    ent = entity_new( );
+    if ( !ent )
     {
-        slog("UGH OHHHH, no player for you!");
+        slog( "UGH OHHHH, no player for you!" );
         return NULL;
     }
-    
-//    ent->model = gf3d_model_load("dino");
-    ent->think = player_think;
-    ent->update = player_update;
-    vector3d_copy(ent->position,position);
-    //vector3d_copy(ent->rotation,rotation);
 
-    ent->rotation.x = rotation.x;
-    ent->rotation.z = rotation.z;
+    red = gf3d_model_load( "red_box" );
+    green = gf3d_model_load( "green_box" );
+    blue = gf3d_model_load( "blue_box" );
+
+    ent->model = green;
+    ent->tag = "player";
+    ent->thinkFixed = player_think_fixed;
+    ent->updateFixed = player_update_fixed;
+    vector3d_copy( ent->position, position );
+    
+
+    world = world_get( );
+    lastUpdate = SDL_GetTicks( );
     return ent;
 }
 
-
-void player_think(Entity *self)
+void player_think_fixed( Entity* self )
 {
-    //Vector3D forward;
-    //Vector3D right;
-    //Vector3D up;
-    //const Uint8 * keys;
-    //keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
+    SDL_Event ev;
 
-    //vector3d_angle_vectors(self->rotation, &forward, &right, &up);
-    //vector3d_set_magnitude(&forward,0.1);
-    //vector3d_set_magnitude(&right,0.1);
-    //vector3d_set_magnitude(&up,0.1);
-    //
-    //if (keys[SDL_SCANCODE_W])
-    //{   
-    //    vector3d_add(self->position,self->position,forward);
-    //}
-    //if (keys[SDL_SCANCODE_S])
-    //{
-    //    vector3d_add(self->position,self->position,-forward);        
-    //}
-    //if (keys[SDL_SCANCODE_D])
-    //{
-    //    vector3d_add(self->position,self->position,right);
-    //}
-    //if (keys[SDL_SCANCODE_A])    
-    //{
-    //    vector3d_add(self->position,self->position,-right);
-    //}
-    //if (keys[SDL_SCANCODE_SPACE])self->position.z += 0.10;
-    //if (keys[SDL_SCANCODE_Z])self->position.z -= 0.10;
-    //
-    //if (keys[SDL_SCANCODE_UP])self->rotation.x -= 0.0010;
-    //if (keys[SDL_SCANCODE_DOWN])self->rotation.x += 0.0010;
-    //if (keys[SDL_SCANCODE_LEFT])self->rotation.z -= 0.0010;
-    //if (keys[SDL_SCANCODE_RIGHT])self->rotation.z += 0.0010;
+    SDL_PollEvent( &ev );
+    
+    if ( ev.type == SDL_KEYDOWN && ev.key.repeat == 0 )
+    {
+        if ( ev.key.keysym.sym == SDLK_w ) targetPos.y += 2.0f;
+        if ( ev.key.keysym.sym == SDLK_a ) targetPos.x += -2.0f;
+        if ( ev.key.keysym.sym == SDLK_s ) targetPos.y += -2.0f;
+        if ( ev.key.keysym.sym == SDLK_d ) targetPos.x += 2.0f;
+        if ( ev.key.keysym.sym == SDLK_e )
+        {
+            if ( cursorState == 1 )
+            {
+                Entity* tower = tower_new( "turret_base", targetPos );
+            } 
+            if ( cursorState == 2 )
+            {
+                tower_upgrade( &entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )] );
+            }  
+        }
 
+        set_cursor_color( self );
+    }
 }
 
-void player_update(Entity *self)
+void player_update_fixed( Entity* self ) // TODO: Clean this up, This is very gross
 {
-    if (!self)return;
-    //gf3d_camera_set_position(self->position);
-    //gf3d_camera_set_rotation(self->rotation);
+    if ( !self )return;
+    if ( targetPos.y < 0 ) targetPos.y = 0.0f;
+    if ( targetPos.x < 0 ) targetPos.x = 0.0f;
+
+    if ( targetPos.x > world->maxCols * 2 - 2 ) targetPos.x = (float)world->maxCols * 2 - 2;
+    if ( targetPos.y > world->maxRows * 2 - 2 ) targetPos.y = (float)world->maxRows * 2 - 2;
+
+    if ( self->position.x < targetPos.x )           self->position.x += 0.1f;
+    if ( self->position.x > targetPos.x + 0.0001f)  self->position.x -= 0.1f;
+    if ( self->position.y < targetPos.y )           self->position.y += 0.1f;
+    if ( self->position.y > targetPos.y + 0.0001f ) self->position.y -= 0.1f;
+
+    if ( lastUpdate + 400 > SDL_GetTicks( ) )
+    {
+        self->position.z += 0.005;
+    }
+    else if ( lastUpdate + 800 > SDL_GetTicks( ) )
+    {
+        self->position.z -= 0.005;
+
+        if ( self->position.z < 0 ) self->position.z = 0; // I shouldnt need this if I start with a higher Z right??
+    }
+    else
+    {
+        lastUpdate = SDL_GetTicks( );
+    }
 }
 
-/*eol@eof*/
+void set_cursor_color( Entity* self )
+{
+    if ( tower_at_pos( targetPos, "player" ) == NULL )
+    {
+        self->model = green;
+        cursorState = 1;
+    }
+    else if ( entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )].tier < 1 )
+    {
+        //slog( entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )].tag );
+        self->model = blue;
+        cursorState = 2;
+    }
+    else
+    {
+        self->model = red;
+        cursorState = 0;
+    }
+}
+
+// Return the index of tower at position
+int tower_at_pos( Vector3D position, char tagMask ) // Move to tower.c
+{
+    int i;
+    for ( i = 0; i < entity_get_manager( )->entity_count; i++ )
+    {
+        if ( entity_get_manager( )->entity_list[i].tag != tagMask )
+        {
+            if ( entity_get_manager( )->entity_list[i].position.x == position.x && entity_get_manager( )->entity_list[i].position.y == position.y )
+            {
+                return i;
+            }
+        }
+    }
+    return NULL;
+}

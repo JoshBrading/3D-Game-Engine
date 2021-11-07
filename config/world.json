@@ -3,8 +3,8 @@
 	{
 		"rows":5,
 		"cols":9,
-		"tile1_model":"tile1",
-		"tile2_model":"turret_base",
+		"tile1_model":"tile",
+		"tile2_model":"tile",
 		"model":"testworld"
 	},
 	"towers":

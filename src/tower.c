@@ -7,7 +7,7 @@ void tower_think( Entity* self );
 void tower_get_target( Entity* self );
 
 
-Entity* tower_new( char tower, Vector3D position )
+Entity* tower_new( char* tower, Vector3D position )
 {
     Entity* ent = NULL;
 
@@ -28,17 +28,18 @@ Entity* tower_new( char tower, Vector3D position )
 
 void tower_think( Entity* self )
 {
-    if ( !self )return;
-    self->rotation.x += -0.002;
-
     tower_get_target( self );
-
 }
 
 void tower_get_target( Entity* self )
 {
     if ( !self )return;
     self->target = entity_get_closest( self, 50, "pfjpefj", 0 );
+}
+
+void tower_upgrade( Entity* self )
+{
+    self->tier++;
 }
 
 /*eol@eof*/

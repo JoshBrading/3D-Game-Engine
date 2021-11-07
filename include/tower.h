@@ -10,7 +10,9 @@
  * @param rotation to spawn the tower with
  * @return NULL on error, or a tower entity pointer on success
  */
-Entity* tower_new( Vector3D position, Vector3D rotation );
+Entity* tower_new( char* tower, Vector3D position );
+
+void tower_upgrade( Entity* self );
 
 
 #endif
