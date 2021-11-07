@@ -107,6 +107,13 @@ void static_entity_update( StaticEntity* self )
     if ( self->update )self->update( self );
 }
 
+void static_entity_update_fixed( StaticEntity* self )
+{
+    if ( !self )return;
+ 
+    if ( self->updateFixed )self->updateFixed( self );
+}
+
 void static_entity_update_all( )
 {
     int i;
@@ -117,6 +124,19 @@ void static_entity_update_all( )
             continue;// skip this iteration of the loop
         }
         static_entity_update( &static_entity_manager.static_entity_list[i] );
+    }
+}
+
+void static_entity_update_fixed_all( )
+{
+    int i;
+    for ( i = 0; i < static_entity_manager.static_entity_count; i++ )
+    {
+        if ( !static_entity_manager.static_entity_list[i]._inuse )// not used yet
+        {
+            continue;// skip this iteration of the loop
+        }
+        static_entity_update_fixed( &static_entity_manager.static_entity_list[i] );
     }
 }
 

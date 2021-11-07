@@ -80,6 +80,7 @@ int main(int argc,char *argv[])
         {
             entity_update_fixed_all( );
             entity_think_fixed_all( );
+            //static_entity_update_fixed_all( );
             lastUpdate = SDL_GetTicks( );
 
         }

@@ -12,6 +12,7 @@ typedef struct StaticEntity_S
 	Model*		model;		/* < Pointer to the static entity model */
 	char*		tag;		/* < tag to make it easier to know what entity is being interacted with */
 	void       (*update)(struct StaticEntity_S* self); /**<pointer to the update function*/
+	void		(*updateFixed)(struct StaticEntity_S* self);
 
 	struct Entity_S* child;     /* <child entity (optional) */
 
@@ -70,6 +71,11 @@ void static_entity_draw_all( );
  * @brief run the update functions for ALL active entities
  */
 void static_entity_update_all( );
+
+/**
+ * @brief Fixed update runs the update functions for all static entities at a fixed rate
+ */
+void static_entity_update_fixed_all( );
 
 //StaticEntity* static_entity_get_by_tag( char* tag );
 #endif // !__STATIC_ENTITY_H__

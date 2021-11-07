@@ -7,12 +7,15 @@
 #include "static_entity.h"
 #include "entity.h"
 #include "tower.h"
+#include "projectile.h"
 
 
 void player_think_fixed( Entity* self );
 void player_update_fixed( Entity* self );
-int tower_at_pos( Vector3D position );
+int tower_at_pos( Vector3D position, char tagMask );
 void set_cursor_color( Entity* self );
+
+char* selectedTower = "p_bullet";
 
 Model* red;
 Model* green;
@@ -68,7 +71,8 @@ void player_think_fixed( Entity* self )
         {
             if ( cursorState == 1 )
             {
-                Entity* tower = tower_new( "turret_base", targetPos );
+                //Entity* tower = tower_new( selectedTower, targetPos );
+                projectile_new( self, self->position );
             } 
             if ( cursorState == 2 )
             {
@@ -76,11 +80,14 @@ void player_think_fixed( Entity* self )
             }  
         }
 
+        if ( ev.key.keysym.sym == SDLK_LEFT ) targetPos.y += 2.0f;
+        if ( ev.key.keysym.sym == SDLK_RIGHT ) targetPos.x += -2.0f;
+
         set_cursor_color( self );
     }
 }
 
-void player_update_fixed( Entity* self ) // TODO: Clean this up, This is very gross
+void player_update_fixed( Entity* self ) // TODO: Clean this up, This is gross
 {
     if ( !self )return;
     if ( targetPos.y < 0 ) targetPos.y = 0.0f;
@@ -90,9 +97,9 @@ void player_update_fixed( Entity* self ) // TODO: Clean this up, This is very gr
     if ( targetPos.y > world->maxRows * 2 - 2 ) targetPos.y = (float)world->maxRows * 2 - 2;
 
     if ( self->position.x < targetPos.x )           self->position.x += 0.1f;
-    if ( self->position.x > targetPos.x + 0.0001f)  self->position.x -= 0.1f;
+    if ( self->position.x > targetPos.x + 0.0001f)  self->position.x -= 0.1f; // Floating point error?
     if ( self->position.y < targetPos.y )           self->position.y += 0.1f;
-    if ( self->position.y > targetPos.y + 0.0001f ) self->position.y -= 0.1f;
+    if ( self->position.y > targetPos.y + 0.0001f ) self->position.y -= 0.1f; // Floating point error?
 
     if ( lastUpdate + 400 > SDL_GetTicks( ) )
     {
@@ -119,7 +126,6 @@ void set_cursor_color( Entity* self )
     }
     else if ( entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )].tier < 1 )
     {
-        //slog( entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )].tag );
         self->model = blue;
         cursorState = 2;
     }

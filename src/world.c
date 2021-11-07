@@ -33,25 +33,6 @@ World* world_load( char* filename )
         sj_free( json );
         return NULL;
     }
-    //modelName = sj_get_string_value( sj_object_get_value( wjson, "model" ) );
-    //if ( modelName )
-    //{
-    //    getch( );
-    //    world->worldModel = gf3d_model_load( (char*)modelName );
-    //    gfc_matrix_identity( world->modelMat );
-    //    gfc_matrix_scale(
-    //        world->modelMat,
-    //        vector3d( 10, 10, 10 )
-    //    );
-    //    gfc_matrix_translate(
-    //        world->modelMat,
-    //        vector3d( 0, 0, -20 )
-    //    );
-    //}
-    //else
-    //{
-    //    slog( "world data (%s) has no model", filename );
-    //}
 
     int valid_maxRows, valid_maxCols;
     valid_maxRows = sj_get_integer_value( sj_object_get_value( wjson, "rows" ), &world->maxRows );
@@ -77,12 +58,8 @@ World* world_load( char* filename )
             {
                 sEnt = static_entity_new( tile2, vector3d( col * 2, row * 2, 0 ), vector3d( 0, 0, 0 ) );
             }
-            //s_ent->tag = tag;
-            //slog( "Static Ent Count: %c", s_ent->tag );
-            //slog( "Row: %i, Col %i", row, col );
-            //slog( "Entity Read XYZ: %i, %i, %i", s_ent->position.x, s_ent->position.y, s_ent->position.z );
 
-            tileFlip = -tileFlip;
+            tileFlip = -tileFlip; 
             count++;
         }
     }
@@ -90,22 +67,7 @@ World* world_load( char* filename )
     slog( "World: Generating Complete." );
 
     world_set_camera( world, vector3d( 0, -10, 10 ), vector3d( -150, 0, 0 ) );
-
-    //getch( );
-    //StaticEntity* sEntTarget = static_entity_get_by_tag( (char*)"test" );
-    //
-    //if ( sEntTarget != NULL )
-    //{
-    //    slog( "Entity Read: %s", sEntTarget->tag );
-    //}
-
-    Entity* tower;
-    Entity* enemy;
-    Entity* enemy2;
-
-   // tower = tower_new( vector3d( 0, 0, 0 ), vector3d( 0, 0, 0 ) );
   
-
     sj_free( json );
     return world;
 }

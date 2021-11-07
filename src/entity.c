@@ -9,7 +9,7 @@ EntityManager entity_manager = { 0 };
 
 void entity_system_close( )
 {
-    int i;
+    Uint32 i;
     for ( i = 0; i < entity_manager.entity_count; i++ )
     {
         entity_free( &entity_manager.entity_list[i] );
@@ -82,13 +82,13 @@ void entity_draw_all( )
 void entity_think( Entity* self )
 {
     if ( !self )return;
-    if ( self->thinkFixed )self->thinkFixed( self );
+    if ( self->think )self->think( self );
 }
 
 void entity_think_fixed( Entity* self )
 {
     if ( !self )return;
-    if ( self->think )self->think( self );
+    if ( self->thinkFixed )self->thinkFixed( self );
 }
 
 void entity_think_all( )
@@ -197,15 +197,16 @@ void entity_update_fixed_all( )
 //    return NULL;
 //}
 
-Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char tagMask )
+Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char* tagMask )
 {
     if ( !self ) return;
     Entity* target = NULL;
     float distance;
     for ( int i = 0; i < entity_manager.entity_count; i++ )
     {
-        if ( entity_manager.entity_list[i].tag != tagMask && entity_manager.entity_list[i].team != teamMask )
+        if ( self != &entity_manager.entity_list[i] && entity_manager.entity_list[i].tag != tagMask && entity_manager.entity_list[i].team != teamMask )
         {
+            if ( entity_manager.entity_list[i].tag ) slog( entity_manager.entity_list[i].tag );
             distance = vector3d_magnitude_between( self->position, entity_manager.entity_list[i].position );
             //slog( "Distance: %f", distance );
             if ( distance < range )
