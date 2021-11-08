@@ -7,22 +7,34 @@
 int playerCoins = 0;
 int playerPower = 0;
 
-void eco_add_coins( int coins )
+void updateCount( );
+
+void eco_add_coin( int coins )
 {
 	playerCoins += coins;
+	updateCount( );
 }
 
-int eco_get_coins( )
+int eco_get_coin( )
 {
 	return playerCoins;
+	updateCount( );
 }
 
 void eco_add_power( int power )
 {
 	playerPower += power;
+	updateCount( );
 }
 
 int eco_get_power( )
 {
 	return playerPower;
+	updateCount( );
+}
+
+void updateCount( )
+{
+	system( "cls" );
+	slog( "Coins: %i", eco_get_coin( ) );
 }

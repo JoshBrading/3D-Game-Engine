@@ -96,7 +96,7 @@ World* world_get( )
 void world_draw( World* world )
 {
     if ( !world )return;
-    if ( !world->worldModel )return;// no model to draw, do nothing
+    if ( !world->worldModel )return; // no model to draw, do nothing
     gf3d_model_draw( world->worldModel, world->modelMat );
 }
 

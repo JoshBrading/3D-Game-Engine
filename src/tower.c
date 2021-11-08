@@ -8,8 +8,9 @@ void tower_think( Entity* self );
 void tower_get_target( Entity* self );
 void tower_attack( Entity* self );
 
+int time;
 
-Entity* tower_new( char* tower, Vector3D position )
+Entity* tower_new( char* tower, char* weapon, Vector3D position )
 {
     Entity* ent = NULL;
 
@@ -21,26 +22,31 @@ Entity* tower_new( char* tower, Vector3D position )
     }
 
     ent->model = gf3d_model_load( tower );
-    ent->think = tower_think;
+    ent->thinkFixed = tower_think;
+    ent->tag = weapon;
     ent->team = 0;
     vector3d_copy( ent->position, position );
     return ent;
+
+    time = 0;
 }
 
 void tower_think( Entity* self )
 {
     tower_get_target( self );
 
-    if ( self->target )
+    if ( self->target && time > self->weaponTimeBetweenShots )
     {
         tower_attack( self );
+        time = 0;
     }
+    time++;
 }
 
 void tower_get_target( Entity* self )
 {
     if ( !self )return;
-    self->target = entity_get_closest( self, 50, 0, "player" );
+    self->target = entity_get_in_row( self, 75, 0, "player" );
 }
 
 void tower_upgrade( Entity* self )
@@ -50,7 +56,7 @@ void tower_upgrade( Entity* self )
 
 void tower_attack( Entity* self )
 {
-    projectile_new( self, self->position );
+    //projectile_new( self, self->position, self->tag );
 }
 
 /*eol@eof*/

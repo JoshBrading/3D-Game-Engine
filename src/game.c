@@ -16,6 +16,7 @@
 #include "agumon.h"
 #include "player.h"
 #include "world.h"
+#include "economy.h"
 
 int main(int argc,char *argv[])
 {
@@ -65,6 +66,9 @@ int main(int argc,char *argv[])
     slog("gf3d main loop begin");
     player_new(vector3d(0,0,0), vector3d( -175, 0, -45 ) );
 
+    system( "cls" );
+
+    Uint32 coinUpdate = 0; 
     Uint32 lastUpdate = 0;
     while(!done)
     {
@@ -81,6 +85,14 @@ int main(int argc,char *argv[])
             entity_update_fixed_all( );
             entity_think_fixed_all( );
             //static_entity_update_fixed_all( );
+
+            if ( coinUpdate > 50 )
+            {
+                //eco_add_coin( 10 );
+                coinUpdate = 0;
+            }
+
+            //coinUpdate++;
             lastUpdate = SDL_GetTicks( );
 
         }
@@ -97,7 +109,8 @@ int main(int argc,char *argv[])
         static_entity_draw_all( );
 
         gf3d_vgraphics_render_end( );
-        
+      
+
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
     }    
     

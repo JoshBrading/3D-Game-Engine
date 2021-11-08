@@ -19,7 +19,8 @@ typedef struct Entity_S
     void               (*updateFixed)(struct Entity_S* self); /* <pointer to the update fixed function */
 
     void               (*damage)(struct Entity_S* self, float damage, struct Entity_S* inflictor); /* <pointer to the damage function */
-    void               (*onDeath)(struct Entity_S* self); /* <pointer to an funciton to call when the entity dies */
+    void               (*onDeath)(struct Entity_S* self); /* <pointer to a funciton to call when the entity dies */
+    void               (*increaseTier)(struct Entity_S* self); /* <pointer to a funciton to call to increase a towers tier */
 
     Vector3D            position;
     Vector3D            velocity;
@@ -27,7 +28,7 @@ typedef struct Entity_S
     Vector3D            scale;
     Vector3D            rotation;
 
-    Uint32              health;     /* <entity dies when it reaches zero */
+    float              health;     /* <entity dies when it reaches zero */
     Uint32              tier;       /* <current upgrade tier, edit with cfg */
 
     struct Entity_S*    parent;     /* <parent entity (optional) */
@@ -37,6 +38,8 @@ typedef struct Entity_S
     char*               tag;		/* < tag to make it easier to know what entity is being interacted with */
     Uint8               team;       /* < team to make it easier to know what entity is */
     float               viewRange;  /* < max distance the entity can "see" */
+    float               weaponDamage;
+    Uint32              weaponTimeBetweenShots;
 
     void*               data;       /* <IF an entity needs to keep track of extra data, we can do it here */
 }Entity;
@@ -112,7 +115,20 @@ void entity_update_fixed_all( );
 * @param tagMask exclude tag from search
 * @return NULL on error or a valid entity pointer on success
 */
-Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char tagMask );
+Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char* tagMask );
 
+/*
+* @brief returns the closest entity to the player in the same row
+* @param self the entity in question
+* @param range to search for entities
+* @param teamMask exclude team from search
+* @param tagMask exclude tag from search
+* @return NULL on error or a valid entity pointer on success
+*/
+Entity* entity_get_in_row( Entity* self, float range, Uint8 teamMask, char* tagMask );
+
+/*
+* @brief returns a pointer to the entity manager
+*/
 EntityManager* entity_get_manager( );
 #endif

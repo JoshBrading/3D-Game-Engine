@@ -59,7 +59,6 @@ void entity_free( Entity* self )
     memset( self, 0, sizeof( Entity ) );
 }
 
-
 void entity_draw( Entity* self )
 {
     if ( !self )return;
@@ -116,7 +115,6 @@ void entity_think_fixed_all( )
         entity_think_fixed( &entity_manager.entity_list[i] );
     }
 }
-
 
 void entity_update( Entity* self )
 {
@@ -200,23 +198,56 @@ void entity_update_fixed_all( )
 Entity* entity_get_closest( Entity* self, float range, Uint8 teamMask, char* tagMask )
 {
     if ( !self ) return;
-    Entity* target = NULL;
+    Entity* ent = NULL;
     float distance;
     for ( int i = 0; i < entity_manager.entity_count; i++ )
     {
         if ( self != &entity_manager.entity_list[i] && entity_manager.entity_list[i].tag != tagMask && entity_manager.entity_list[i].team != teamMask )
         {
-            if ( entity_manager.entity_list[i].tag ) slog( entity_manager.entity_list[i].tag );
             distance = vector3d_magnitude_between( self->position, entity_manager.entity_list[i].position );
-            //slog( "Distance: %f", distance );
+
             if ( distance < range )
             {
                 range = distance;
-                target = &entity_manager.entity_list[i];
+                ent = &entity_manager.entity_list[i];
             }
         }
     }
-    return target;
+    return ent;
+}
+
+Entity* entity_get_in_row( Entity* self, float range, Uint8 teamMask, char* tagMask )
+{
+    if ( !self ) return;
+    Entity* ent = NULL;
+    float distance;
+    for ( int i = 0; i < entity_manager.entity_count; i++ )
+    {
+        if ( self != &entity_manager.entity_list[i] && entity_manager.entity_list[i].tag != tagMask && entity_manager.entity_list[i].team != teamMask )
+        {
+            if ( self->team == 0 && self->position.y == entity_manager.entity_list[i].position.y && self->position.x <= entity_manager.entity_list[i].position.x )
+            {
+                distance = vector3d_magnitude_between( self->position, entity_manager.entity_list[i].position );
+
+                if ( distance < range )
+                {
+                    range = distance;
+                    ent = &entity_manager.entity_list[i];
+                }
+            }
+            if ( self->team == 1 && self->position.y == entity_manager.entity_list[i].position.y && self->position.x >= entity_manager.entity_list[i].position.x )
+            {
+                distance = vector3d_magnitude_between( self->position, entity_manager.entity_list[i].position );
+
+                if ( distance < range )
+                {
+                    range = distance;
+                    ent = &entity_manager.entity_list[i];
+                }
+            }
+        }
+    }
+    return ent;
 }
 
 EntityManager* entity_get_manager( )

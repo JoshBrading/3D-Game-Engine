@@ -6,8 +6,13 @@
 #include "world.h"
 #include "static_entity.h"
 #include "entity.h"
-#include "tower.h"
+#include "t_rifle.h"
+#include "t_grenadier.h"
+#include "t_blocker.h"
+#include "t_mechanic.h"
 #include "projectile.h"
+#include "enemy.h"
+#include "economy.h"
 
 
 void player_think_fixed( Entity* self );
@@ -15,7 +20,7 @@ void player_update_fixed( Entity* self );
 int tower_at_pos( Vector3D position, char tagMask );
 void set_cursor_color( Entity* self );
 
-char* selectedTower = "p_bullet";
+char* selectedTower = "t_rifle";
 
 Model* red;
 Model* green;
@@ -67,17 +72,51 @@ void player_think_fixed( Entity* self )
         if ( ev.key.keysym.sym == SDLK_a ) targetPos.x += -2.0f;
         if ( ev.key.keysym.sym == SDLK_s ) targetPos.y += -2.0f;
         if ( ev.key.keysym.sym == SDLK_d ) targetPos.x += 2.0f;
-        if ( ev.key.keysym.sym == SDLK_e )
+        if ( ev.key.keysym.sym == SDLK_p ) eco_add_coin( 1000 );
+        if ( ev.key.keysym.sym == SDLK_1 && cursorState == 1 && eco_get_coin() >= 100 )
+        {
+                Entity* tower = tower_rifle_new( targetPos );
+                eco_add_coin( -100 );
+        }
+        if ( ev.key.keysym.sym == SDLK_2 && cursorState == 1 && eco_get_coin() >= 100 )
+        {
+                Entity* tower = tower_grenadier_new( targetPos );
+                eco_add_coin( -100 );
+        }
+        if ( ev.key.keysym.sym == SDLK_3 && cursorState == 1 && eco_get_coin() >= 100 )
+        {
+                Entity* tower = tower_blocker_new( targetPos );
+                eco_add_coin( -100 );
+        }
+        if ( ev.key.keysym.sym == SDLK_4 && cursorState == 1 && eco_get_coin() >= 100 )
+        {
+                Entity* tower = tower_mechanic_new( targetPos );
+                eco_add_coin( -100 );
+        }
+        if ( ev.key.keysym.sym == SDLK_5 && cursorState == 1 && eco_get_coin() >= 100 )
+        {
+                Entity* tower = tower_mechanic_new( targetPos );
+                tower->tag = "t_support";
+                tower->model = gf3d_model_load( "t_support" );
+                eco_add_coin( -100 );
+        }
+
+
+        if ( ev.key.keysym.sym == SDLK_e && cursorState == 2 && eco_get_coin() >= 50 )
+        {
+            Entity* tower = &entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )];
+            tower->increaseTier( tower );
+            eco_add_coin( -50 );
+           // tower_upgrade( &entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )] );
+        }  
+        
+        if ( ev.key.keysym.sym == SDLK_q )
         {
             if ( cursorState == 1 )
             {
-                //Entity* tower = tower_new( selectedTower, targetPos );
-                projectile_new( self, self->position );
+                Entity* enemy = enemy_new( "t_rifle", targetPos );
+                //projectile_new( self, self->position );
             } 
-            if ( cursorState == 2 )
-            {
-                tower_upgrade( &entity_get_manager( )->entity_list[tower_at_pos( targetPos, "player" )] );
-            }  
         }
 
         if ( ev.key.keysym.sym == SDLK_LEFT ) targetPos.y += 2.0f;
@@ -137,6 +176,7 @@ void set_cursor_color( Entity* self )
 }
 
 // Return the index of tower at position
+// Returning the tower entity itself was causing issues, this should be fixed though
 int tower_at_pos( Vector3D position, char tagMask ) // Move to tower.c
 {
     int i;

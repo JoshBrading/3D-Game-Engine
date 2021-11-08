@@ -10,7 +10,7 @@
  * @param position where to spawn the tower at
  * @return NULL on error, or a tower entity pointer on success
  */
-Entity* tower_new( char* tower, Vector3D position );
+Entity* tower_new( char* tower, char* weapon, Vector3D position );
 
 /*
 * @bief Upgrade a tower
