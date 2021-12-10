@@ -2,6 +2,7 @@
 #include "simple_logger.h"
 #include "t_rifle.h"
 #include "projectile.h"
+#include "gfc_audio.h"
 
 
 void tower_rifle_think( Entity* self );
@@ -41,6 +42,8 @@ Entity* tower_rifle_new( Vector3D position )
     vector3d_copy( ent->position, position );
 
     fireRateOld = ent->weaponTimeBetweenShots;
+
+    ent-> attackSFX = gfc_sound_load("sfx/SFX_Lasers.mp3", 50.0f, 1);
 
     time = 0;
     return ent;   
@@ -110,6 +113,8 @@ void tower_rifle_attack( Entity* self )
     if ( !self )return;
     //slog( "attack" );
     projectile_new( self, self->position, "p_bullet", self->weaponDamage );
+    gfc_sound_play(self->attackSFX, 0, 100.0f, 1, 1);
+
 }
 
 void t_rifle_damage( Entity* self, float damage, Entity* inflictor )

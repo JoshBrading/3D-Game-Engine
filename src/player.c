@@ -114,7 +114,7 @@ void player_think_fixed( Entity* self )
         {
             if ( cursorState == 1 )
             {
-                Entity* enemy = enemy_new( "t_rifle", targetPos );
+                Entity* enemy = enemy_new( "enemy", targetPos );
                 //projectile_new( self, self->position );
             } 
         }

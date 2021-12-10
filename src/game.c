@@ -10,6 +10,8 @@
 #include "gf3d_model.h"
 #include "gf3d_camera.h"
 #include "gf3d_texture.h"
+#include "gfc_audio.h"
+#include "gf3d_sprite.h"
 
 #include "entity.h"
 #include "static_entity.h"
@@ -17,16 +19,21 @@
 #include "player.h"
 #include "world.h"
 #include "economy.h"
+#include "network.h"
 
 int main(int argc,char *argv[])
 {
+    int network_game = 0;//establish_connection( "127.0.0.1" );
+
     int done = 0;
     int a;
     Uint8 validate = 0;
     const Uint8 * keys;
-    
     World *w;
-    
+    //Sprite* mouse = NULL;
+    //int mousex, mousey;
+    //float mouseFrame = 0;
+
     for (a = 1; a < argc;a++)
     {
         if (strcmp(argv[a],"-disable_validate") == 0)
@@ -53,6 +60,10 @@ int main(int argc,char *argv[])
 
     static_entity_system_init( 1024 );
 
+    gfc_audio_init( 32, 1, 1, 4, true, false);
+
+
+
     w = world_load("config/world.json");
 
     //for (a = 0; a < 10;a++)
@@ -66,7 +77,7 @@ int main(int argc,char *argv[])
     slog("gf3d main loop begin");
     player_new(vector3d(0,0,0), vector3d( -175, 0, -45 ) );
 
-    system( "cls" );
+  //  system( "cls" );
 
     Uint32 coinUpdate = 0; 
     Uint32 lastUpdate = 0;
@@ -76,6 +87,7 @@ int main(int argc,char *argv[])
 
         SDL_PumpEvents( );   // update SDL's internal event structures
         keys = SDL_GetKeyboardState( NULL ); // get the keyboard state for this frame
+       // SDL_GetMouseState(&mousex, &mousey);
 
         entity_think_all( );
         entity_update_all( );
@@ -85,6 +97,8 @@ int main(int argc,char *argv[])
             entity_update_fixed_all( );
             entity_think_fixed_all( );
             //static_entity_update_fixed_all( );
+            //slog("Network: %i", network_game);
+
 
             if ( coinUpdate > 50 )
             {
@@ -104,9 +118,12 @@ int main(int argc,char *argv[])
         // for each mesh, get a command and configure it from the pool
         gf3d_vgraphics_render_start( );
 
+        //3D drawsd
         world_draw( w );
         entity_draw_all( );
         static_entity_draw_all( );
+        //2D draws
+       // gf3d_sprite_draw(mouse, vector2d(mousex, mousey), vector2d(1, 1), (Uint32)mouseFrame);
 
         gf3d_vgraphics_render_end( );
       
@@ -118,6 +135,7 @@ int main(int argc,char *argv[])
     
     vkDeviceWaitIdle(gf3d_vgraphics_get_default_logical_device());    
     //cleanup
+    gfc_sound_clear_all();
     slog("gf3d program end");
     slog_sync();
     return 0;

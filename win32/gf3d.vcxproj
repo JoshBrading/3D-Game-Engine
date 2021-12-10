@@ -106,6 +106,8 @@
     <ClInclude Include="..\include\collision.h" />
     <ClInclude Include="..\include\economy.h" />
     <ClInclude Include="..\include\enemy.h" />
+    <ClInclude Include="..\include\gf3d_sprite.h" />
+    <ClInclude Include="..\include\network.h" />
     <ClInclude Include="..\include\particles.h" />
     <ClInclude Include="..\include\projectile.h" />
     <ClInclude Include="..\include\static_entity.h" />
@@ -160,11 +162,13 @@
     <ClCompile Include="..\src\gf3d_obj_load.c" />
     <ClCompile Include="..\src\gf3d_pipeline.c" />
     <ClCompile Include="..\src\gf3d_shaders.c" />
+    <ClCompile Include="..\src\gf3d_sprite.c" />
     <ClCompile Include="..\src\gf3d_swapchain.c" />
     <ClCompile Include="..\src\gf3d_texture.c" />
     <ClCompile Include="..\src\gf3d_validation.c" />
     <ClCompile Include="..\src\gf3d_vgraphics.c" />
     <ClCompile Include="..\src\gf3d_vqueues.c" />
+    <ClCompile Include="..\src\network.c" />
     <ClCompile Include="..\src\particles.c" />
     <ClCompile Include="..\src\player.c" />
     <ClCompile Include="..\src\projectile.c" />

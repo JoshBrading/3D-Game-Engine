@@ -4,6 +4,7 @@
 #include "gfc_types.h"
 #include "gf3d_model.h"
 #include "static_entity.h"
+#include "gfc_audio.h"
 
 
 typedef struct Entity_S
@@ -40,6 +41,9 @@ typedef struct Entity_S
     float               viewRange;  /* < max distance the entity can "see" */
     float               weaponDamage;
     Uint32              weaponTimeBetweenShots;
+
+    Sound*              entSound;
+    Sound*              attackSFX;
 
     void*               data;       /* <IF an entity needs to keep track of extra data, we can do it here */
 }Entity;
