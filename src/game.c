@@ -30,9 +30,9 @@ int main(int argc,char *argv[])
     Uint8 validate = 0;
     const Uint8 * keys;
     World *w;
-    //Sprite* mouse = NULL;
-    //int mousex, mousey;
-    //float mouseFrame = 0;
+    Sprite* mouse = NULL;
+    int mousex, mousey;
+    float mouseFrame = 0;
 
     for (a = 1; a < argc;a++)
     {
@@ -62,7 +62,7 @@ int main(int argc,char *argv[])
 
     gfc_audio_init( 32, 1, 1, 4, true, false);
 
-
+    mouse = gf3d_sprite_load("images/pointer.png", 32, 32, 16);
 
     w = world_load("config/world.json");
 
@@ -87,7 +87,10 @@ int main(int argc,char *argv[])
 
         SDL_PumpEvents( );   // update SDL's internal event structures
         keys = SDL_GetKeyboardState( NULL ); // get the keyboard state for this frame
-       // SDL_GetMouseState(&mousex, &mousey);
+        SDL_GetMouseState(&mousex, &mousey);
+
+        mouseFrame += 0.01;
+        if (mouseFrame >= 16)mouseFrame = 0;
 
         entity_think_all( );
         entity_update_all( );
@@ -123,7 +126,7 @@ int main(int argc,char *argv[])
         entity_draw_all( );
         static_entity_draw_all( );
         //2D draws
-       // gf3d_sprite_draw(mouse, vector2d(mousex, mousey), vector2d(1, 1), (Uint32)mouseFrame);
+        gf3d_sprite_draw(mouse, vector2d(mousex, mousey), vector2d(1, 1), (Uint32)mouseFrame);
 
         gf3d_vgraphics_render_end( );
       

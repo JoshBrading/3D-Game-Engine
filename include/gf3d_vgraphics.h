@@ -14,7 +14,7 @@
  * @brief init Vulkan / SDL, setup device and initialize infrastructure for 3d graphics
  */
 void gf3d_vgraphics_init(
-    char *windowName,
+    char* windowName,
     int renderWidth,
     int renderHeight,
     Vector4D bgcolor,
@@ -40,15 +40,22 @@ void gf3d_vgraphics_render_end();
 Uint32  gf3d_vgraphics_get_current_buffer_frame();
 
 /**
- * @brief get the handle to the active command buffer for the current rendering context
+ * @brief get the handle to the active command buffer for the current 3d model rendering context
  * @note: THIS SHOULD ONLY BE CALLED BETWEEN CALLS TO gf3d_vgraphics_render_start() and gf3d_vgraphics_render_end()
  * @return the handle to the command buffer.
  */
-VkCommandBuffer gf3d_vgraphics_get_current_command_buffer();
+VkCommandBuffer gf3d_vgraphics_get_current_command_model_buffer();
+
+/**
+ * @brief get the handle to the active command buffer for the current 2d overlay rendering context
+ * @note: THIS SHOULD ONLY BE CALLED BETWEEN CALLS TO gf3d_vgraphics_render_start() and gf3d_vgraphics_render_end()
+ * @return the handle to the command buffer.
+ */
+VkCommandBuffer gf3d_vgraphics_get_current_command_overlay_buffer();
 
 
 /**
- * @brief After initialization 
+ * @brief After initialization
  */
 VkDevice gf3d_vgraphics_get_default_logical_device();
 
@@ -59,7 +66,7 @@ VkExtent2D gf3d_vgraphics_get_view_extent();
 void gf3d_vgraphics_clear();
 
 
-int gf3d_vgraphics_create_buffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer * buffer, VkDeviceMemory * bufferMemory);
+int gf3d_vgraphics_create_buffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer* buffer, VkDeviceMemory* bufferMemory);
 
 void gf3d_vgraphics_copy_buffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
 
@@ -71,15 +78,25 @@ void gf3d_vgraphics_rotate_camera(float degrees);
  * @brief get the matrix used for rendering the view
  * @return the view matrix sent to every rendering call
  */
-Matrix4 *gf3d_vgraphics_get_view_matrix();
+Matrix4* gf3d_vgraphics_get_view_matrix();
 
 
 VkBuffer gf3d_vgraphics_get_uniform_buffer_by_index(Uint32 index);
 UniformBufferObject gf3d_vgraphics_get_uniform_buffer_object();
 
-Pipeline *gf3d_vgraphics_get_graphics_pipeline();
+/**
+ * @brief get the pipeline that is used to render basic 3d models
+ * @return NULL on error or the pipeline in question
+ */
+Pipeline* gf3d_vgraphics_get_graphics_model_pipeline();
 
-Command *gf3d_vgraphics_get_graphics_command_pool();
+/**
+ * @brief get the pipeline that is used to render 2d images to the overlay
+ * @return NULL on error or the pipeline in question
+ */
+Pipeline* gf3d_vgraphics_get_graphics_overlay_pipeline();
+
+Command* gf3d_vgraphics_get_graphics_command_pool();
 
 VkImageView gf3d_vgraphics_create_image_view(VkImage image, VkFormat format);
 
