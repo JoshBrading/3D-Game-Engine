@@ -100,5 +100,6 @@ Command* gf3d_vgraphics_get_graphics_command_pool();
 
 VkImageView gf3d_vgraphics_create_image_view(VkImage image, VkFormat format);
 
+SDL_Window* gf3d_vgraphics_get_window();
 
 #endif

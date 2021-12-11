@@ -770,4 +770,10 @@ VkImageView gf3d_vgraphics_create_image_view(VkImage image, VkFormat format)
     return imageView;
 }
 
+SDL_Window* gf3d_vgraphics_get_window()
+{
+    return gf3d_vgraphics.main_window;
+}
+
+
 /*eol@eof*/

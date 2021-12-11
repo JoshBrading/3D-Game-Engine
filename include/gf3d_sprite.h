@@ -84,5 +84,7 @@ VkVertexInputBindingDescription * gf3d_sprite_get_bind_description();
 
 VkVertexInputAttributeDescription * gf3d_sprite_get_attribute_descriptions(Uint32 *count);
 
+Sprite* gf3d_sprite_from_sdl_texture(SDL_Texture* sdlTexture, char* name, int frame_width, int frame_height, Uint32 frames_per_line);
+
 
 #endif

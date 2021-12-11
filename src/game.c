@@ -20,6 +20,7 @@
 #include "world.h"
 #include "economy.h"
 #include "network.h"
+#include <SDL_ttf.h>
 
 int main(int argc,char *argv[])
 {
@@ -31,6 +32,7 @@ int main(int argc,char *argv[])
     const Uint8 * keys;
     World *w;
     Sprite* mouse = NULL;
+    Sprite* mouse2 = NULL;
     int mousex, mousey;
     float mouseFrame = 0;
 
@@ -57,12 +59,12 @@ int main(int argc,char *argv[])
 	slog_sync();
     
     entity_system_init(1024);
-
     static_entity_system_init( 1024 );
-
+    gf3d_sprite_manager_init(16, gf3d_swapchain_get_chain_length(), gf3d_vgraphics_get_default_logical_device());
     gfc_audio_init( 32, 1, 1, 4, true, false);
 
     mouse = gf3d_sprite_load("images/pointer.png", 32, 32, 16);
+    mouse2 = gf3d_sprite_load("images/pointer2.png", 32, 32, 16);
 
     w = world_load("config/world.json");
 
@@ -81,6 +83,30 @@ int main(int argc,char *argv[])
 
     Uint32 coinUpdate = 0; 
     Uint32 lastUpdate = 0;
+
+    const SDL_Rect* dstrect;
+    SDL_Color color = { 255, 255, 255 };
+
+    TTF_Init();
+
+    SDL_Renderer* renderer = SDL_CreateRenderer(gf3d_vgraphics_get_window(), -1, 0);
+
+    if (!renderer) slog("Render failed ");
+
+    TTF_Font* font = TTF_OpenFont("fonts/arial.ttf" /*path*/, 32 /*size*/);
+    SDL_Surface* textSurface = TTF_RenderText_Blended(font, "Coins: 0", color);
+
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+    //int width, height;
+    //SDL_QueryTexture(textSurface, NULL, NULL, &width, &height);
+    slog("Creating Text Texture");
+    Sprite* textTest = gf3d_sprite_from_sdl_texture(textSurface, "test", textSurface->w, textSurface->h, 1);
+    //slog("Width: %i Height: %i", width, height);
+
+   // SDL_RenderCopy(renderer, textTexture, NULL, dstrect);
+
+    int currentCoin = 0;
     while(!done)
     {
         
@@ -102,7 +128,18 @@ int main(int argc,char *argv[])
             //static_entity_update_fixed_all( );
             //slog("Network: %i", network_game);
 
+            if (currentCoin != eco_get_coin()) {
+                currentCoin = eco_get_coin();
 
+                char* text[16];
+                sprintf(text, "Coins: %d", currentCoin);
+
+                gf3d_sprite_free(textTest); // TODO: Modify the sprite texture in gf3d_sprite instead of freeing
+                textSurface = TTF_RenderText_Blended(font, text, color);
+                textTest = gf3d_sprite_from_sdl_texture(textSurface, "test.png", textSurface->w, textSurface->h, 1);
+            }
+
+            //slog("Current: %i GetCoin(): %i", currentCoin, eco_get_coin());
             if ( coinUpdate > 50 )
             {
                 //eco_add_coin( 10 );
@@ -127,6 +164,8 @@ int main(int argc,char *argv[])
         static_entity_draw_all( );
         //2D draws
         gf3d_sprite_draw(mouse, vector2d(mousex, mousey), vector2d(1, 1), (Uint32)mouseFrame);
+        gf3d_sprite_draw(textTest, vector2d(100, 100), vector2d(1, 1), (Uint32)mouseFrame);
+       
 
         gf3d_vgraphics_render_end( );
       

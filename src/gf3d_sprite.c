@@ -416,4 +416,30 @@ void gf3d_sprite_create_uniform_buffer(Sprite *sprite)
     }
 }
 
+Sprite* gf3d_sprite_from_sdl_texture(SDL_Surface* sdlTexture, char * name, int frame_width, int frame_height, Uint32 frames_per_line)
+{
+    Sprite* sprite;
+    sprite = gf3d_sprite_new();
+    if (!sprite)
+    {
+        return NULL;
+    }
+    sprite->texture = gf3d_texture_load_from_sdl_surface( sdlTexture);
+    if (!sprite->texture)
+    {
+        slog("gf3d_sprite_load: failed to load sdl_texture for sprite");
+        gf3d_sprite_free(sprite);
+        return NULL;
+    }
+    if (frame_width < 0)frame_width = sprite->texture->width;
+    if (frame_height < 0)frame_height = sprite->texture->height;
+    sprite->frameWidth = frame_width;
+    sprite->frameHeight = frame_height;
+    if (frames_per_line)sprite->framesPerLine = frames_per_line;
+    else sprite->framesPerLine = 1;
+    gfc_line_cpy(sprite->filename, name);
+    gf3d_sprite_create_vertex_buffer(sprite);
+    return sprite;
+}
+
 /*eol@eof*/
