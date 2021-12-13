@@ -23,7 +23,7 @@ Entity* enemy_new( char* enemy, Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( enemy , 1);
+    ent->model = gf3d_model_load( enemy , 20);
     ent->think = enemy_think;
     ent->thinkFixed = enemy_think_fixed;
     ent->damage = damage;
@@ -59,6 +59,15 @@ void enemy_think_fixed( Entity* self )
         enemy_attack( self );
         time = 0;
     }
+
+    if( time % 5 == 0 )
+    {
+        if( self->model->currentFrame < self->model->frames - 1 )
+            self->model->currentFrame += 1;
+        else
+            self->model->currentFrame = 0;
+    }
+
     time++;
 }
 

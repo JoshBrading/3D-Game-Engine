@@ -85,6 +85,7 @@ Model* gf3d_model_load( char* filename, Uint32 frameCount )
 
 
     model->frames = frameCount;
+    model->currentFrame = 0; // Assume models start on frame 0
     model->mesh = ( Mesh** )gfc_allocate_array( sizeof( Mesh* ), frameCount );
     if( !model->mesh )
     {
@@ -150,7 +151,7 @@ void gf3d_model_draw(Model* model, Matrix4 modelMat, Uint32 frame)
         return;
     }
     gf3d_model_update_basic_model_descriptor_set(model, *descriptorSet, bufferFrame, modelMat);
-    gf3d_mesh_render(model->mesh[frame-1], commandBuffer, descriptorSet);
+    gf3d_mesh_render(model->mesh[model->currentFrame], commandBuffer, descriptorSet);
 }
 
 void gf3d_model_update_basic_model_descriptor_set(Model* model, VkDescriptorSet descriptorSet, Uint32 chainIndex, Matrix4 modelMat)

@@ -27,7 +27,7 @@ Entity* tower_rifle_new( Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( "t_rifle", 1 );
+    ent->model = gf3d_model_load( "t_rifle", 2 );
     ent->baseFilename = "t_rifle";
     ent->thinkFixed = tower_rifle_think;
     ent->increaseTier = tower_rifle_upgrade;
@@ -56,7 +56,7 @@ void tower_rifle_think( Entity* self )
     if ( self->target && time > self->weaponTimeBetweenShots )
     {
         tower_rifle_attack( self );
-
+        self->model->currentFrame = 1;
         float range = 3; // Damage a 3x3 radius
         float distance;
 

@@ -40,6 +40,7 @@ typedef struct
     TextLine                    filename;
     Mesh                    **  mesh;
     Uint32                      frames;
+    Uint32                      currentFrame;
     Texture                 *   texture;
     VkDescriptorSet         *   descriptorSet;
     VkBuffer                *   uniformBuffers;
