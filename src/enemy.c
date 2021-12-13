@@ -23,7 +23,7 @@ Entity* enemy_new( char* enemy, Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( enemy );
+    ent->model = gf3d_model_load( enemy , 1);
     ent->think = enemy_think;
     ent->thinkFixed = enemy_think_fixed;
     ent->damage = damage;

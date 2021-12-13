@@ -27,7 +27,7 @@ Entity* tower_rifle_new( Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( "t_rifle" );
+    ent->model = gf3d_model_load( "t_rifle", 1 );
     ent->baseFilename = "t_rifle";
     ent->thinkFixed = tower_rifle_think;
     ent->increaseTier = tower_rifle_upgrade;
@@ -105,7 +105,7 @@ void tower_rifle_upgrade( Entity* self )
     if ( !self )return;
     self->tier++;
     self->weaponTimeBetweenShots = 100;
-    self->model = gf3d_model_load( "t_rifle_t2" );
+    self->model = gf3d_model_load( "t_rifle_t2", 1 );
 }
 
 void tower_rifle_attack( Entity* self )

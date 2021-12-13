@@ -73,8 +73,8 @@ void entity_draw_all( )
         if ( !entity_manager.entity_list[i]._inuse )// not used yet
         {
             continue;// skip this iteration of the loop
-        }
-        entity_draw( &entity_manager.entity_list[i] );
+        }      
+        entity_draw( &entity_manager.entity_list[i], 1 );
     }
 }
 

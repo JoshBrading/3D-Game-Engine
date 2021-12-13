@@ -26,7 +26,7 @@ Entity* tower_mechanic_new( Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( "t_mechanic" );
+    ent->model = gf3d_model_load( "t_mechanic", 1 );
 
     ent->thinkFixed = tower_mechanic_think;
     ent->damage = t_mechanic_damage;
@@ -85,11 +85,11 @@ void tower_mechanic_upgrade( Entity* self )
     self->tier++;
     if ( self->tag == "t_mechanic" )
     {
-        self->model = gf3d_model_load( "t_mechanic_t2" );
+        self->model = gf3d_model_load( "t_mechanic_t2", 1 );
     }
     else
     {
-        self->model = gf3d_model_load( "t_support_t2" );
+        self->model = gf3d_model_load( "t_support_t2", 1 );
     }
 }
 

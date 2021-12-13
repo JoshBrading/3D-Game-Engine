@@ -71,13 +71,15 @@ int main( int argc, char* argv[] )
     mouse2 = gf3d_sprite_load( "images/pointer2.png", 32, 32, 16 );
 
     w = world_load( "config/world.json" );
-
     // main game loop
-    slog_sync();
+    slog( "World Loaded" );
+
     gf3d_camera_set_scale( vector3d( 1, 1, 1 ) );
+
 
     slog( "gf3d main loop begin" );
     player_new( vector3d( 0, 0, 0 ), vector3d( -175, 0, -45 ) );
+    slog_sync();
 
     Uint32 coinUpdate = 0;
     Uint32 lastUpdate = 0;
@@ -110,6 +112,8 @@ int main( int argc, char* argv[] )
     int currentCoin = 0;
     while( !done )
     {
+        slog_sync();
+
         SDL_PumpEvents();   // update SDL's internal event structures
         keys = SDL_GetKeyboardState( NULL ); // get the keyboard state for this frame
         SDL_GetMouseState( &mousex, &mousey );

@@ -21,7 +21,7 @@ Entity* tower_new( char* tower, char* weapon, Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( tower );
+    ent->model = gf3d_model_load( tower, 1 );
     ent->thinkFixed = tower_think;
     ent->tag = weapon;
     ent->team = 0;

@@ -120,7 +120,14 @@ void gf3d_model_delete(Model* model)
         vkFreeMemory(gf3d_model.device, model->uniformBuffersMemory[i], NULL);
     }
 
-    gf3d_mesh_free(model->mesh);
+    for( i = 0; i < model->frames; i++ )
+    {
+        gf3d_mesh_free( model->mesh[ i ] );
+    }
+    if( model->mesh )
+    {
+        memset( model->mesh, 0, sizeof( model->mesh ) );
+    }
     gf3d_texture_free(model->texture);
     memset(model, 0, sizeof(Model));
 }
@@ -143,7 +150,7 @@ void gf3d_model_draw(Model* model, Matrix4 modelMat, Uint32 frame)
         return;
     }
     gf3d_model_update_basic_model_descriptor_set(model, *descriptorSet, bufferFrame, modelMat);
-    gf3d_mesh_render(model->mesh[frame], commandBuffer, descriptorSet);
+    gf3d_mesh_render(model->mesh[frame-1], commandBuffer, descriptorSet);
 }
 
 void gf3d_model_update_basic_model_descriptor_set(Model* model, VkDescriptorSet descriptorSet, Uint32 chainIndex, Matrix4 modelMat)

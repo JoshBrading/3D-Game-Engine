@@ -45,9 +45,9 @@ Entity* player_new( Vector3D position, Vector3D rotation )
         return NULL;
     }
 
-    red = gf3d_model_load( "red_box" );
-    green = gf3d_model_load( "green_box" );
-    blue = gf3d_model_load( "blue_box" );
+    red = gf3d_model_load( "red_box", 1 );
+    green = gf3d_model_load( "green_box", 1 );
+    blue = gf3d_model_load( "blue_box", 1 );
 
     ent->model = green;
     ent->tag = "player";
@@ -109,7 +109,7 @@ void player_think_fixed( Entity* self )
         {
                 Entity* tower = tower_mechanic_new( targetPos );
                 tower->tag = "t_support";
-                tower->model = gf3d_model_load( "t_support" );
+                tower->model = gf3d_model_load( "t_support", 1 );
                 eco_add_coin( -100 );
                 self->lastInput = "SDLK_5";
                 self->targetPos = targetPos;

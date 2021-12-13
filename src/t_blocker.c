@@ -25,7 +25,7 @@ Entity* tower_blocker_new( Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( "t_blocker" );
+    ent->model = gf3d_model_load( "t_blocker", 1 );
 
     ent->thinkFixed = tower_blocker_think;
     ent->damage = t_blocker_damage;
@@ -104,7 +104,7 @@ void tower_blocker_upgrade( Entity* self )
     if ( !self )return;
     self->tier++;
     self->health += 300;
-    self->model = gf3d_model_load( "t_blocker_t2" );
+    self->model = gf3d_model_load( "t_blocker_t2", 1 );
 }
 
 void tower_blocker_attack( Entity* self )

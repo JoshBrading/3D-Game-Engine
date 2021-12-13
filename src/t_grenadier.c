@@ -22,7 +22,7 @@ Entity* tower_grenadier_new( Vector3D position )
         return NULL;
     }
 
-    ent->model = gf3d_model_load( "t_grenadier" );
+    ent->model = gf3d_model_load( "t_grenadier", 1 );
     ent->thinkFixed = tower_grenadier_think;
     ent->increaseTier = tower_grenadier_upgrade;
     ent->team = 0;
@@ -57,7 +57,7 @@ void tower_grenadier_upgrade( Entity* self )
     self->tier++;
     self->weaponDamage = self->weaponDamage * 2;
     self->weaponTimeBetweenShots = (int)(self->weaponTimeBetweenShots * 0.75f);
-    self->model = gf3d_model_load( "t_grenadier_t2" );
+    self->model = gf3d_model_load( "t_grenadier_t2", 1 );
 }
 
 void tower_grenadier_attack( Entity* self )

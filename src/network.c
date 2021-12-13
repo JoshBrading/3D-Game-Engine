@@ -176,7 +176,7 @@ void network_receive()
             {
                 Entity* tower = tower_mechanic_new( remotePos );
                 tower->tag = "t_support";
-                tower->model = gf3d_model_load( "t_support" ); // Wow! Talk about bad code.
+                tower->model = gf3d_model_load( "t_support", 1 ); // Wow! Talk about bad code.
             }
         }
     }

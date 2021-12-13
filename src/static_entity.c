@@ -26,7 +26,7 @@ StaticEntity* static_entity_new( char* filename, Vector3D position, Vector3D rot
 
             static_entity_manager.static_entity_list[i].tag = "test";
 
-            static_entity_manager.static_entity_list[i].model = gf3d_model_load( (char*)filename );
+            static_entity_manager.static_entity_list[i].model = gf3d_model_load( (char*)filename, 1 );
 
             //slog( "Entity Spawning XYZ: %f, %f, %f", position.x, position.y, position.z );
 
@@ -73,7 +73,7 @@ void static_entity_free( StaticEntity* self )
 void static_entity_draw( StaticEntity* self )
 {
     if ( !self )return;
-    gf3d_model_draw( self->model, self->modelMat );
+    gf3d_model_draw( self->model, self->modelMat, 1 );
 }
 
 void static_entity_draw_all( )

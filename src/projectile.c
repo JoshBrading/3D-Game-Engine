@@ -23,7 +23,7 @@ Entity* projectile_new( Entity* parent, Vector3D position, char* tag, float dama
         return NULL;
     }
     //slog( "test: %f", damage );
-    ent->model = gf3d_model_load( tag );
+    ent->model = gf3d_model_load( tag, 1 );
     ent->baseFilename = tag;
     ent->thinkFixed = projectile_think_fixed;
     ent->think = projectile_think;
