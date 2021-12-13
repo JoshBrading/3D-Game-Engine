@@ -68,6 +68,11 @@ void enemy_think_fixed( Entity* self )
             self->model->currentFrame = 0;
     }
 
+    if( self->position.x < 0 )
+    {
+        slog( "You Lose!" );
+    }
+
     time++;
 }
 

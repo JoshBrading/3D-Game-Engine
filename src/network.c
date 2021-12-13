@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <simple_logger.h>
 #include <entity.h>
+#include "enemy.h"
 #include <static_entity.h>
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
@@ -177,6 +178,10 @@ void network_receive()
                 Entity* tower = tower_mechanic_new( remotePos );
                 tower->tag = "t_support";
                 tower->model = gf3d_model_load( "t_support", 1 ); // Wow! Talk about bad code.
+            }
+            else if( strstr( cleanText, "SDLK_Q" ) != NULL )
+            {
+                enemy_new( "enemy", remotePos );
             }
         }
     }

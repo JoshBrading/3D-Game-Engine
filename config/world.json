@@ -2,7 +2,7 @@
 	"world":
 	{
 		"rows":5,
-		"cols":9,
+		"cols":13,
 		"tile1_model":"tile",
 		"tile2_model":"tile",
 		"model":"testworld"

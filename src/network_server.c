@@ -6,6 +6,8 @@
 #include "simple_logger.h"
 #include "gfc_types.h"
 #include "entity.h"
+#include "world.h"
+#include "enemy.h"
 
 #include <windows.h>
 #include <winsock2.h>
@@ -190,6 +192,26 @@ void network_server_receive()
                 ent->lastInput = ""; // Reset the input so it does not send multiple times
                 const char* sendbuf = data;
                 iSendResult = send( ClientSocket, sendbuf, ( int )strlen( sendbuf ), 0 );
+                
+                int rdm = rand() % ( 100 - 0 + 1 );
+                //slog( "Rand: %i", rdm );
+                if( 1 == rdm )
+                {
+                    for( int row = 1; row < world_get()->maxRows; row++ )
+                    {
+                        if( 1 == rand() % ( 25 - 0 + 1 ) )
+                        {
+                            Entity* enemy = enemy_new( "enemy", vector3d( world_get()->maxCols * 2 + 1, row * 2, 0 ) );
+                            sprintf( data, "SDLK_Q(%f,%f,%f)", enemy->position.x, enemy->position.y, 0 );
+                            sendbuf = data;
+                            iSendResult = send( ClientSocket, sendbuf, ( int )strlen( sendbuf ), 0 );
+                        }
+
+                    }
+                }
+                
+                
+                
                 if( iSendResult == SOCKET_ERROR )
                 {
                     slog( "send failed with error: %d", WSAGetLastError() );

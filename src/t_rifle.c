@@ -56,7 +56,6 @@ void tower_rifle_think( Entity* self )
     if ( self->target && time > self->weaponTimeBetweenShots )
     {
         tower_rifle_attack( self );
-        self->model->currentFrame = 1;
         float range = 3; // Damage a 3x3 radius
         float distance;
 

@@ -84,33 +84,33 @@ void player_think_fixed( Entity* self )
                 self->targetPos = targetPos;
                 slog( "TargetPos: ( %f, %f, %f )", targetPos.x, targetPos.y, targetPos.z );
         }
-        if ( ev.key.keysym.sym == SDLK_2 && cursorState == 1 && eco_get_coin() >= 100 )
+        if ( ev.key.keysym.sym == SDLK_2 && cursorState == 1 && eco_get_coin() >= 200 )
         {
                 Entity* tower = tower_grenadier_new( targetPos );
-                eco_add_coin( -100 );
+                eco_add_coin( -200 );
                 self->lastInput = "SDLK_2";
                 self->targetPos = targetPos;
         }
-        if ( ev.key.keysym.sym == SDLK_3 && cursorState == 1 && eco_get_coin() >= 100 )
+        if ( ev.key.keysym.sym == SDLK_3 && cursorState == 1 && eco_get_coin() >= 300 )
         {
                 Entity* tower = tower_blocker_new( targetPos );
-                eco_add_coin( -100 );
+                eco_add_coin( -300 );
                 self->lastInput = "SDLK_3";
                 self->targetPos = targetPos;
         }
-        if ( ev.key.keysym.sym == SDLK_4 && cursorState == 1 && eco_get_coin() >= 100 )
+        if ( ev.key.keysym.sym == SDLK_4 && cursorState == 1 && eco_get_coin() >= 500 )
         {
                 Entity* tower = tower_mechanic_new( targetPos );
-                eco_add_coin( -100 );
+                eco_add_coin( -500 );
                 self->lastInput = "SDLK_4";
                 self->targetPos = targetPos;
         }
-        if ( ev.key.keysym.sym == SDLK_5 && cursorState == 1 && eco_get_coin() >= 100 )
+        if ( ev.key.keysym.sym == SDLK_5 && cursorState == 1 && eco_get_coin() >= 500 )
         {
                 Entity* tower = tower_mechanic_new( targetPos );
                 tower->tag = "t_support";
                 tower->model = gf3d_model_load( "t_support", 1 );
-                eco_add_coin( -100 );
+                eco_add_coin( -500 );
                 self->lastInput = "SDLK_5";
                 self->targetPos = targetPos;
         }
