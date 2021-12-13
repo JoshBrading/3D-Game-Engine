@@ -1,8 +1,8 @@
 {
 	"world":
 	{
-		"rows":5,
-		"cols":13,
+		"rows":3,
+		"cols":11,
 		"tile1_model":"tile",
 		"tile2_model":"tile",
 		"model":"testworld"
