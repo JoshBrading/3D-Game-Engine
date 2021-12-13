@@ -28,7 +28,7 @@ Entity* tower_rifle_new( Vector3D position )
     }
 
     ent->model = gf3d_model_load( "t_rifle" );
-
+    ent->baseFilename = "t_rifle";
     ent->thinkFixed = tower_rifle_think;
     ent->increaseTier = tower_rifle_upgrade;
     ent->damage = t_rifle_damage;

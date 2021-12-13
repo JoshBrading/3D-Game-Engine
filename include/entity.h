@@ -29,16 +29,19 @@ typedef struct Entity_S
     Vector3D            scale;
     Vector3D            rotation;
 
-    float              health;     /* <entity dies when it reaches zero */
+    float               health;     /* <entity dies when it reaches zero */
     Uint32              tier;       /* <current upgrade tier, edit with cfg */
 
     struct Entity_S*    parent;     /* <parent entity (optional) */
     struct Entity_S*    target;     /* <entity to target for weapons / ai*/
     struct Static_Entity_S* staticParent; /* < static parent for towers */
 
-    char*               tag;		/* < tag to make it easier to know what entity is being interacted with */
-    Uint8               team;       /* < team to make it easier to know what entity is */
-    float               viewRange;  /* < max distance the entity can "see" */
+    char*               baseFilename;   /* < store the basefilename, figure out how to use TextLine in the future */
+    char*               lastInput;      /* < store the last input the player uses, used for networked multiplayer */
+    Vector3D            targetPos;      /* < store the players target position, used for networked multiplayer */
+    char*               tag;		    /* < tag to make it easier to know what entity is being interacted with */
+    Uint8               team;           /* < team to make it easier to know what entity is */
+    float               viewRange;      /* < max distance the entity can "see" */
     float               weaponDamage;
     Uint32              weaponTimeBetweenShots;
 

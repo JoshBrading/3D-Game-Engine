@@ -13,6 +13,7 @@
 #include "projectile.h"
 #include "enemy.h"
 #include "economy.h"
+#include "network.h"
 
 
 void player_think_fixed( Entity* self );
@@ -50,6 +51,8 @@ Entity* player_new( Vector3D position, Vector3D rotation )
 
     ent->model = green;
     ent->tag = "player";
+    ent->lastInput = "test";
+    ent->targetPos = vector3d( 0.0f, 0.0f, 0.0f );
     ent->thinkFixed = player_think_fixed;
     ent->updateFixed = player_update_fixed;
     vector3d_copy( ent->position, position );
@@ -77,21 +80,30 @@ void player_think_fixed( Entity* self )
         {
                 Entity* tower = tower_rifle_new( targetPos );
                 eco_add_coin( -100 );
+                self->lastInput = "SDLK_1";
+                self->targetPos = targetPos;
+                slog( "TargetPos: ( %f, %f, %f )", targetPos.x, targetPos.y, targetPos.z );
         }
         if ( ev.key.keysym.sym == SDLK_2 && cursorState == 1 && eco_get_coin() >= 100 )
         {
                 Entity* tower = tower_grenadier_new( targetPos );
                 eco_add_coin( -100 );
+                self->lastInput = "SDLK_2";
+                self->targetPos = targetPos;
         }
         if ( ev.key.keysym.sym == SDLK_3 && cursorState == 1 && eco_get_coin() >= 100 )
         {
                 Entity* tower = tower_blocker_new( targetPos );
                 eco_add_coin( -100 );
+                self->lastInput = "SDLK_3";
+                self->targetPos = targetPos;
         }
         if ( ev.key.keysym.sym == SDLK_4 && cursorState == 1 && eco_get_coin() >= 100 )
         {
                 Entity* tower = tower_mechanic_new( targetPos );
                 eco_add_coin( -100 );
+                self->lastInput = "SDLK_4";
+                self->targetPos = targetPos;
         }
         if ( ev.key.keysym.sym == SDLK_5 && cursorState == 1 && eco_get_coin() >= 100 )
         {
@@ -99,6 +111,8 @@ void player_think_fixed( Entity* self )
                 tower->tag = "t_support";
                 tower->model = gf3d_model_load( "t_support" );
                 eco_add_coin( -100 );
+                self->lastInput = "SDLK_5";
+                self->targetPos = targetPos;
         }
 
 
@@ -118,7 +132,28 @@ void player_think_fixed( Entity* self )
                 //projectile_new( self, self->position );
             } 
         }
+        if( ev.key.keysym.sym == SDLK_t )
+        {
+            Entity* ent;
+            slog( "Send Update" );
+            int count = entity_get_manager()->entity_count;
+            int i;
+            for( i = 0; i < entity_get_manager()->entity_count; i++ )
+            {
+                 ent = &entity_get_manager()->entity_list[ i ];
 
+                 char* entTag = ent->baseFilename;
+                 if( entTag )
+                 {
+                     char data[ 512 ];
+                     slog( "Filename", ent->baseFilename );
+                     slog( "Position ( %f, %f, %f )", ent->position.x, ent->position.y, ent->position.z );
+                     sprintf( data, "Name: %s\nPosition: ( %f, %f, %f )\n\n", ent->baseFilename, ent->position.x, ent->position.y, ent->position.z );
+                     send_update( data );
+                     network_receive();
+                 }
+            }
+        }
         if ( ev.key.keysym.sym == SDLK_LEFT ) targetPos.y += 2.0f;
         if ( ev.key.keysym.sym == SDLK_RIGHT ) targetPos.x += -2.0f;
 

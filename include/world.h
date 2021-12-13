@@ -14,6 +14,8 @@ typedef struct
     Matrix4 modelMat;
     Model *worldModel;
 
+    Uint32 network_mode;    // Used for making decisions about how to communicate with host and clients
+                            // 0 = offline, 1 = host, 2 = client
     Uint32 maxRows;
     Uint32 maxCols;
 

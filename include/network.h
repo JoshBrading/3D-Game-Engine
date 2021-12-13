@@ -8,7 +8,9 @@
  */
 int establish_connection( char* ipAddr );
 
-void send_update();
+void send_update( );
+
+void network_receive();
 
 void close_connection();
 
