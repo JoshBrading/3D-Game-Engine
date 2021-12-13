@@ -59,10 +59,10 @@ void entity_free( Entity* self )
     memset( self, 0, sizeof( Entity ) );
 }
 
-void entity_draw( Entity* self )
+void entity_draw( Entity* self, Uint32 frame )
 {
     if ( !self )return;
-    gf3d_model_draw( self->model, self->modelMat );
+    gf3d_model_draw( self->model, self->modelMat, frame );
 }
 
 void entity_draw_all( )

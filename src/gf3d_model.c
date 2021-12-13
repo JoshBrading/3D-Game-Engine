@@ -76,14 +76,26 @@ Model* gf3d_model_new()
     return NULL;
 }
 
-Model* gf3d_model_load(char* filename)
+Model* gf3d_model_load( char* filename, Uint32 frameCount )
 {
     TextLine assetname;
     Model* model;
     model = gf3d_model_new();
     if (!model)return NULL;
-    snprintf(assetname, GFCLINELEN, "models/%s.obj", filename);
-    model->mesh = gf3d_mesh_load(assetname);
+
+
+    model->frames = frameCount;
+    model->mesh = ( Mesh** )gfc_allocate_array( sizeof( Mesh* ), frameCount );
+    if( !model->mesh )
+    {
+        gf3d_model_free( model );
+        return NULL;
+    }
+    for( int i = 0; i < frameCount; i++ )
+    {
+        snprintf( assetname, GFCLINELEN, "models/%s_%i.obj", filename, i );
+        model->mesh[ i ] = gf3d_mesh_load( assetname );
+    }
 
     snprintf(assetname, GFCLINELEN, "images/tile1.png");
     model->texture = gf3d_texture_load(assetname);
@@ -113,7 +125,7 @@ void gf3d_model_delete(Model* model)
     memset(model, 0, sizeof(Model));
 }
 
-void gf3d_model_draw(Model* model, Matrix4 modelMat)
+void gf3d_model_draw(Model* model, Matrix4 modelMat, Uint32 frame)
 {
     VkDescriptorSet* descriptorSet = NULL;
     VkCommandBuffer commandBuffer;
@@ -131,7 +143,7 @@ void gf3d_model_draw(Model* model, Matrix4 modelMat)
         return;
     }
     gf3d_model_update_basic_model_descriptor_set(model, *descriptorSet, bufferFrame, modelMat);
-    gf3d_mesh_render(model->mesh, commandBuffer, descriptorSet);
+    gf3d_mesh_render(model->mesh[frame], commandBuffer, descriptorSet);
 }
 
 void gf3d_model_update_basic_model_descriptor_set(Model* model, VkDescriptorSet descriptorSet, Uint32 chainIndex, Matrix4 modelMat)

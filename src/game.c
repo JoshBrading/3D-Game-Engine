@@ -67,7 +67,7 @@ int main( int argc, char* argv[] )
     gf3d_sprite_manager_init( 16, gf3d_swapchain_get_chain_length(), gf3d_vgraphics_get_default_logical_device() );
     gfc_audio_init( 32, 1, 1, 4, true, false );
 
-    mouse = gf3d_sprite_load( "images/pointer.png", 32, 32, 16 );
+    mouse = gf3d_sprite_load( "images/t_rifle_icon.png", 64, 64, 0 );
     mouse2 = gf3d_sprite_load( "images/pointer2.png", 32, 32, 16 );
 
     w = world_load( "config/world.json" );
@@ -110,8 +110,6 @@ int main( int argc, char* argv[] )
     int currentCoin = 0;
     while( !done )
     {
-
-
         SDL_PumpEvents();   // update SDL's internal event structures
         keys = SDL_GetKeyboardState( NULL ); // get the keyboard state for this frame
         SDL_GetMouseState( &mousex, &mousey );

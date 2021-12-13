@@ -81,7 +81,7 @@ void entity_free( Entity* self );
  * @brief Draw an entity in the current frame
  * @param self the entity in question
  */
-void entity_draw( Entity* self );
+void entity_draw( Entity* self, Uint32 frame );
 
 /**
  * @brief draw ALL active entities

@@ -38,7 +38,8 @@ typedef struct
 {
     Uint8                       _inuse;
     TextLine                    filename;
-    Mesh                    *   mesh;
+    Mesh                    **  mesh;
+    Uint32                      frames;
     Texture                 *   texture;
     VkDescriptorSet         *   descriptorSet;
     VkBuffer                *   uniformBuffers;
@@ -49,14 +50,14 @@ typedef struct
 
 void gf3d_model_manager_init(Uint32 max_models,Uint32 chain_length,VkDevice device);
 
-Model * gf3d_model_load(char * filename);
+Model * gf3d_model_load(char * filename, Uint32 frames);
 Model * gf3d_model_new();
 /**
  * @brief queue up a model for rendering
  * @param model the model to render
  * @param modelMat the model matrix (MVP)
  */
-void gf3d_model_draw(Model *model,Matrix4 modelMat);
+void gf3d_model_draw(Model *model,Matrix4 modelMat, Uint32 frame );
 void gf3d_model_free(Model *model);
 
 /**
