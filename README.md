@@ -6,8 +6,42 @@ Currently the project is in a WIP state.
 It represents my first stab at getting vulkan rendering pipeline setup.
 It is not stable and I intend to do a complete rewrite of the vulkan system as soon as I can find some time
 
+# Additions to gf3d
+The following will be a compilation of my additions to the provided gf3d base.
+* Animation system
+* Entity system
+* Networked coop
+* Audio system
+* World loading from config
+* Radius based collision detection
+* 2D UI Layer
+* Text rendering
+* User control system
+## 3D-Tower-Defense
+3D-Tower-Defense is a basic demo game built on top of the game engine created throughout the semester.
+
+## Controls
+| Key | Action                                   |
+|:---:|------------------------------------------|
+| 1-5 | Spawns corresponding tower at position   |
+|  E  | Upgrade current tower                    |
+|  W  | Move up                                  |
+|  A  | Move left                                |
+|  S  | Move down                                |
+| D   | Move right                               |
+| E   | Cheat* Spawn local enemy                 |
+|  P  | Cheat* Increase coin count by 1000 |
+
+## Demo
+[![Demo](https://i.imgur.com/9xUTfTl.gif)](https://i.imgur.com/9xUTfTl.mp4)
 
 # Build Process
+Required dependencies are:
+* [SDL2-2.0.16](https://www.libsdl.org/release/)
+* [SDL2_ttf-2.0.15](https://www.libsdl.org/projects/SDL_ttf/release/)
+* [SDL2_mixer-2.0.4](https://www.libsdl.org/projects/SDL_mixer/release/)
+* [SDL2_image-2.0.5](https://www.libsdl.org/projects/SDL_image/release/)
+* [VulkanSDK_1.2.189.2](https://vulkan.lunarg.com/sdk/home)
 
 Before you can build the example code we are providing for you, you will need to obtain the libraries required
 by the source code. Some of these libraries are easy to obtain and others are provided by the vendors of hardware
