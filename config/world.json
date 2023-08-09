@@ -1,0 +1,26 @@
+{
+	"world":
+	{
+		"rows":3,
+		"cols":11,
+		"tile1_model":"tile",
+		"tile2_model":"tile",
+		"model":"testworld"
+	},
+	"towers":
+	[
+		"t_rifle",
+		"t_grenadier",
+		"t_blocker",
+		"t_support",
+		"t_mechanic"
+	],
+	"enemies":
+	[
+		"e_walker",
+		"e_runner",
+		"e_bomber",
+		"e_emp",
+		"e_"
+	]
+}
