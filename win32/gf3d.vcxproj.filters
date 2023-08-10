@@ -114,9 +114,6 @@
     <ClInclude Include="..\include\static_entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\tower.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\economy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -130,21 +127,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\particles.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\t_blocker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\t_grenadier.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\t_mechanic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\t_rifle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\t_support.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\network.h">
@@ -263,9 +245,6 @@
     <ClCompile Include="..\src\static_entity.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\tower.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\economy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -280,21 +259,6 @@
     </ClCompile>
     <ClCompile Include="..\src\particles.c">
       <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\t_blocker.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\t_grenadier.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\t_mechanic.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\t_rifle.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\t_support.c">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\network.c">
       <Filter>Source Files</Filter>

@@ -1,0 +1,205 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'function'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                },
+                "region": {
+                  "startLine": 216,
+                  "startColumn": 9,
+                  "endLine": 216,
+                  "endColumn": 41
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "sj_list_foreach",
+                  "decoratedName": "sj_list_foreach",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                          },
+                          "region": {
+                            "startLine": 204,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                          },
+                          "region": {
+                            "startLine": 205,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                          },
+                          "region": {
+                            "startLine": 210,
+                            "startColumn": 9
+                          }
+                        },
+                        "message": {
+                          "text": "'function' may be NULL (Enter this branch)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                          },
+                          "region": {
+                            "startLine": 212,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                          },
+                          "region": {
+                            "startLine": 214,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                          },
+                          "region": {
+                            "startLine": 214,
+                            "startColumn": 18
+                          }
+                        },
+                        "message": {
+                          "text": "Enter this loop, (assume 'i<list->count')"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+                          },
+                          "region": {
+                            "startLine": 216,
+                            "startColumn": 9
+                          }
+                        },
+                        "message": {
+                          "text": "'function' is dereferenced, but may still be NULL"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.37.32822.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Users/Josh/Desktop/Programming/VulkanEngine/gf3d/gfc/simple_json/src/simple_json_list.c"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "a530f655537f7c73bd12289a6c91f6f1b5c202138116e28d58128894611a46cd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/josh/desktop/programming/vulkanengine/gf3d/gfc/simple_json/include/simple_json_list.h"
+          },
+          "hashes": {
+            "sha-256": "9759d1775235d4ca05e70ed8f9185b57625dd3b91c05cae146d3de6d492fcd96"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/josh/desktop/programming/vulkanengine/gf3d/gfc/simple_json/include/simple_json_error.h"
+          },
+          "hashes": {
+            "sha-256": "bd23545131b3acc1e63598cc44623558ee60d23d2725409c180a92dc708bf313"
+          }
+        }
+      ]
+    }
+  ]
+}

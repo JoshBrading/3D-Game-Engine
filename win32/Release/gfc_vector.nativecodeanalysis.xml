@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>47</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector2d_magnitude</FUNCTION>
+    <DECORATED>vector2d_magnitude</DECORATED>
+    <FUNCLINE>45</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>47</LINE>
+      <COLUMN>19</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector2d_magnitude</FUNCTION>
+    <DECORATED>vector2d_magnitude</DECORATED>
+    <FUNCLINE>45</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>37</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector3d_magnitude</FUNCTION>
+    <DECORATED>vector3d_magnitude</DECORATED>
+    <FUNCLINE>50</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector3d_magnitude</FUNCTION>
+    <DECORATED>vector3d_magnitude</DECORATED>
+    <FUNCLINE>50</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>52</LINE>
+      <COLUMN>19</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector3d_magnitude</FUNCTION>
+    <DECORATED>vector3d_magnitude</DECORATED>
+    <FUNCLINE>50</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>57</LINE>
+      <COLUMN>49</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector4d_magnitude</FUNCTION>
+    <DECORATED>vector4d_magnitude</DECORATED>
+    <FUNCLINE>55</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>57</LINE>
+      <COLUMN>37</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector4d_magnitude</FUNCTION>
+    <DECORATED>vector4d_magnitude</DECORATED>
+    <FUNCLINE>55</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>57</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector4d_magnitude</FUNCTION>
+    <DECORATED>vector4d_magnitude</DECORATED>
+    <FUNCLINE>55</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>57</LINE>
+      <COLUMN>19</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>vector4d_magnitude</FUNCTION>
+    <DECORATED>vector4d_magnitude</DECORATED>
+    <FUNCLINE>55</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gfc\src\</FILEPATH>
+      <FILENAME>gfc_vector.c</FILENAME>
+      <LINE>545</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>angle_between_degrees</FUNCTION>
+    <DECORATED>angle_between_degrees</DECORATED>
+    <FUNCLINE>542</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
