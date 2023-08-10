@@ -10,37 +10,33 @@ It is not stable and I intend to do a complete rewrite of the vulkan system as s
 The following will be a compilation of my additions to the provided gf3d base.
 * Animation system
 * Entity system
-* Networked coop
+* Networked coop (WIP)
 * Audio system
-* World loading from config
+* World loading from config (WIP)
 * Radius based collision detection
-* 2D UI Layer
-* Text rendering
-* User control system
-## 3D-Tower-Defense
-3D-Tower-Defense is a basic demo game built on top of the game engine created throughout the semester.
+* 2D UI Layer (WIP)
+* Text rendering (WIP)
+* User control system (WIP)
 
 ## Controls
 | Key | Action                                   |
 |:---:|------------------------------------------|
-| 1-5 | Spawns corresponding tower at position   |
-|  E  | Upgrade current tower                    |
-|  W  | Move up                                  |
+|  W  | Move forward                             |
 |  A  | Move left                                |
-|  S  | Move down                                |
-| D   | Move right                               |
-| E   | Cheat* Spawn local enemy                 |
-|  P  | Cheat* Increase coin count by 1000 |
+|  S  | Move backwards                           |
+|  D  | Move right                               |
+|  C  | Move up                                  |
+|  Z  | Move down                                |
 
 ## Demo
-[![Demo](https://i.imgur.com/9xUTfTl.gif)](https://i.imgur.com/9xUTfTl.mp4)
+Coming soon!
 
 # Build Process
 Required dependencies are:
-* [SDL2-2.0.16](https://www.libsdl.org/release/)
-* [SDL2_ttf-2.0.15](https://www.libsdl.org/projects/SDL_ttf/release/)
-* [SDL2_mixer-2.0.4](https://www.libsdl.org/projects/SDL_mixer/release/)
-* [SDL2_image-2.0.5](https://www.libsdl.org/projects/SDL_image/release/)
+* [SDL2-2.0.16 (devel)](https://www.libsdl.org/release/)
+* [SDL2_ttf-2.0.15 (devel)](https://www.libsdl.org/projects/SDL_ttf/release/)
+* [SDL2_mixer-2.0.4 (devel)](https://www.libsdl.org/projects/SDL_mixer/release/)
+* [SDL2_image-2.0.5 (devel)](https://www.libsdl.org/projects/SDL_image/release/)
 * [VulkanSDK_1.2.189.2](https://vulkan.lunarg.com/sdk/home)
 
 Before you can build the example code we are providing for you, you will need to obtain the libraries required
