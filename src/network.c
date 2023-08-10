@@ -125,70 +125,70 @@ void send_update()
 void network_receive()
 {
     // Receive until the peer closes the connection
-    iResult = recv( ConnectSocket, recvbuf, recvbuflen, 0 );
-    if( iResult > 0 )
-    {
-        //printf( "Bytes received: %d\n", cResult );
-
-        char cleanText[ 512 ];
-        char charArray[ 4 ][ 32 ];
-        strncpy( cleanText, recvbuf, iResult );
-
-        if( strstr( cleanText, "SDLK" ) != NULL )
-        {
-            //printf( "Data...\n%s \n", cleanText );
-
-            char delim[] = "(,)";
-
-            char* ptr = strtok( recvbuf, delim );
-
-            Vector3D remotePos = vector3d( 0.0f, 0.0f, 0.0f );
-            int i = 0;
-            while( ptr != NULL )
-            {
-                printf( "'%s'\n", ptr );
-                ptr = strtok( NULL, delim );
-
-                if( i == 0 ) remotePos.x = atof( ptr ); // Relies on data being sent in proper order
-                if( i == 1 ) remotePos.y = atof( ptr );
-
-                i++;
-            }
-
-            printf( "Pos( %f, %f )", remotePos.x, remotePos.y );
-
-            if( strstr( cleanText, "SDLK_1" ) != NULL )
-            {
-                Entity* tower = tower_rifle_new( remotePos );
-            }
-            else if( strstr( cleanText, "SDLK_2" ) != NULL )
-            {
-                Entity* tower = tower_grenadier_new( remotePos );
-            }
-            else if( strstr( cleanText, "SDLK_3" ) != NULL )
-            {
-                Entity* tower = tower_blocker_new( remotePos );
-            }
-            else if( strstr( cleanText, "SDLK_4" ) != NULL )
-            {
-                Entity* tower = tower_mechanic_new( remotePos );
-            }
-            else if( strstr( cleanText, "SDLK_5" ) != NULL )
-            {
-                Entity* tower = tower_mechanic_new( remotePos );
-                tower->tag = "t_support";
-                tower->model = gf3d_model_load( "t_support", 1 ); // Wow! Talk about bad code.
-            }
-            else if( strstr( cleanText, "SDLK_Q" ) != NULL )
-            {
-                enemy_new( "enemy", remotePos );
-            }
-        }
-    }
-    else if( iResult == 0 )
-        slog( "Connection closed" );
-    else
-        slog( "recv failed with error: %d", WSAGetLastError() );
+    //iResult = recv( ConnectSocket, recvbuf, recvbuflen, 0 );
+    //if( iResult > 0 )
+    //{
+    //    //printf( "Bytes received: %d\n", cResult );
+    //
+    //    char cleanText[ 512 ];
+    //    char charArray[ 4 ][ 32 ];
+    //    strncpy( cleanText, recvbuf, iResult );
+    //
+    //    if( strstr( cleanText, "SDLK" ) != NULL )
+    //    {
+    //        //printf( "Data...\n%s \n", cleanText );
+    //
+    //        char delim[] = "(,)";
+    //
+    //        char* ptr = strtok( recvbuf, delim );
+    //
+    //        Vector3D remotePos = vector3d( 0.0f, 0.0f, 0.0f );
+    //        int i = 0;
+    //        while( ptr != NULL )
+    //        {
+    //            printf( "'%s'\n", ptr );
+    //            ptr = strtok( NULL, delim );
+    //
+    //            if( i == 0 ) remotePos.x = atof( ptr ); // Relies on data being sent in proper order
+    //            if( i == 1 ) remotePos.y = atof( ptr );
+    //
+    //            i++;
+    //        }
+    //
+    //        printf( "Pos( %f, %f )", remotePos.x, remotePos.y );
+    //
+    //        if( strstr( cleanText, "SDLK_1" ) != NULL )
+    //        {
+    //            Entity* tower = tower_rifle_new( remotePos );
+    //        }
+    //        else if( strstr( cleanText, "SDLK_2" ) != NULL )
+    //        {
+    //            Entity* tower = tower_grenadier_new( remotePos );
+    //        }
+    //        else if( strstr( cleanText, "SDLK_3" ) != NULL )
+    //        {
+    //            Entity* tower = tower_blocker_new( remotePos );
+    //        }
+    //        else if( strstr( cleanText, "SDLK_4" ) != NULL )
+    //        {
+    //            Entity* tower = tower_mechanic_new( remotePos );
+    //        }
+    //        else if( strstr( cleanText, "SDLK_5" ) != NULL )
+    //        {
+    //            Entity* tower = tower_mechanic_new( remotePos );
+    //            tower->tag = "t_support";
+    //            tower->model = gf3d_model_load( "t_support", 1 ); // Wow! Talk about bad code.
+    //        }
+    //        else if( strstr( cleanText, "SDLK_Q" ) != NULL )
+    //        {
+    //            enemy_new( "enemy", remotePos );
+    //        }
+    //    }
+    //}
+    //else if( iResult == 0 )
+    //    slog( "Connection closed" );
+    //else
+    //    slog( "recv failed with error: %d", WSAGetLastError() );
     return;
 }
 
