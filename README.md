@@ -29,8 +29,8 @@ The following will be a compilation of my additions to the provided gf3d base.
 |  Z  | Move down                                |
 
 ## Demo
-Coming soon!
-
+[![Demo](https://i.imgur.com/a/rGRh1pB.gif)](https://i.imgur.com/a/rGRh1pB.mp4)
+[Video Link](https://i.imgur.com/YqDPulW.mp4)
 # Build Process
 Required dependencies are:
 * [SDL2-2.0.16 (devel)](https://www.libsdl.org/release/)
