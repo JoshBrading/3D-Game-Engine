@@ -29,6 +29,9 @@ typedef struct Entity_S
     Vector3D            scale;
     Vector3D            rotation;
 
+    Uint8               hasPhysics;
+    Uint8               hasCollision;
+
     float               health;     /* <entity dies when it reaches zero */
     Uint32              tier;       /* <current upgrade tier, edit with cfg */
 

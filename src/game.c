@@ -111,6 +111,7 @@ void start_game()
 
     Entity* cube = entity_new();
     cube->model = gf3d_model_load("cube", 1);
+    cube->hasPhysics = 1;
     vector3d_copy(cube->position, vector3d(10, 0, 0));
 
     Entity* cylinder = entity_new();
@@ -120,6 +121,11 @@ void start_game()
     Entity* cone = entity_new();
     cone->model = gf3d_model_load("cone", 1);
     vector3d_copy(cone->position, vector3d(-10, 0, 0));
+
+    Entity* plane = entity_new();
+    plane->model = gf3d_model_load("plane", 1);
+    plane->scale = vector3d(20, 20, 20);
+    vector3d_copy(plane->position, vector3d(0, 0, -10));
 
     gf3d_camera_set_position(vector3d(0, 40, 0));
     gf3d_camera_set_rotation(vector3d(0, 0, 0));

@@ -7,6 +7,9 @@
 *.obj
 *.elf
 
+#Include models
+!models/*.obj
+
 # Linker output
 *.ilk
 *.map
@@ -42,8 +45,8 @@
 *.idb
 *.pdb
 *.tlog
-.Debug/
-.Release/
+win32/Debug/
+win32/Release/
 
 # Kernel Module Compile Results
 *.mod*

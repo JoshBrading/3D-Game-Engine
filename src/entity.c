@@ -44,6 +44,10 @@ Entity* entity_new( )
             entity_manager.entity_list[i].scale.x = 1;
             entity_manager.entity_list[i].scale.y = 1;
             entity_manager.entity_list[i].scale.z = 1;
+
+            entity_manager.entity_list[i].hasCollision = 0;
+            entity_manager.entity_list[i].hasPhysics = 0;
+
             return &entity_manager.entity_list[i];
         }
     }
@@ -143,6 +147,9 @@ void entity_update_fixed( Entity* self )
 
     vector3d_add( self->position, self->position, self->velocity );
     //vector3d_add(self->velocity,self->acceleration,self->velocity);
+
+    if( self->hasPhysics ) self->position.z = self->position.z - 0.098f;
+    
 
     gfc_matrix_identity( self->modelMat );
     gfc_matrix_scale( self->modelMat, self->scale );

@@ -1,2 +1,0 @@
-C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\gf3d.exe.lastcodeanalysissucceeded
-C:\Users\Josh\Desktop\Programming\VulkanEngine\gf3d\win32\Release\NativeCodeAnalysis.read.1.tlog
