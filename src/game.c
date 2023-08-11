@@ -25,6 +25,8 @@
 
 #include "gfc_vector.h"
 
+#include "collision.h"
+
 void start_game();
 
 int main( int argc, char* argv[] )
@@ -114,9 +116,14 @@ void start_game()
     cube->hasPhysics = 1;
     vector3d_copy(cube->position, vector3d(10, 0, 0));
 
-    Entity* cylinder = entity_new();
-    cylinder->model = gf3d_model_load("cylinder", 1);
-    vector3d_copy(cylinder->position, vector3d(0, 0, 0));
+    Entity* cube2 = entity_new();
+    cube2->model = gf3d_model_load("cube", 1);
+    cube2->hasPhysics = 1;
+    vector3d_copy(cube2->position, vector3d(0, 0, 0));
+
+    //Entity* cylinder = entity_new();
+    //cylinder->model = gf3d_model_load("cylinder", 1);
+    //vector3d_copy(cylinder->position, vector3d(0, 0, 0));
 
     Entity* cone = entity_new();
     cone->model = gf3d_model_load("cone", 1);
@@ -124,15 +131,31 @@ void start_game()
 
     Entity* plane = entity_new();
     plane->model = gf3d_model_load("plane", 1);
-    plane->scale = vector3d(20, 20, 20);
+    plane->scale = vector3d(20, 20, 0);
     vector3d_copy(plane->position, vector3d(0, 0, -10));
 
     gf3d_camera_set_position(vector3d(0, 40, 0));
     gf3d_camera_set_rotation(vector3d(0, 0, 0));
 
+    ColliderAABB aabb;
+    aabb.max = vector3d(11, 1, 1);
+    aabb.min = vector3d(9, -1, -1);
+
+    ColliderAABB aabb2;
+    aabb2.max = vector3d(1, 1, 1);
+    aabb2.min = vector3d(-1, -1, -1);
+
+    ColliderPlane plane2;
+    plane2.position = vector3d(-20, -20, -10);
+    plane2.scale.x = 40;
+    plane2.scale.y = 40;
+
     float frames = 0;
     float ticks = 0;
     int start_time = SDL_GetTicks();
+
+    Uint8 physics = 0;
+    Uint8 colliding = 0;
     while( !done )
     {
 
@@ -146,14 +169,55 @@ void start_game()
 
         SDL_PollEvent(&ev);
 
+        
+
         if (ev.type == SDL_KEYDOWN)
         {
-            if (ev.key.keysym.sym == SDLK_w) cube->position.y += 0.50f;
-            if (ev.key.keysym.sym == SDLK_a) cube->position.x += -0.50f;
-            if (ev.key.keysym.sym == SDLK_s) cube->position.y += -0.50f;
-            if (ev.key.keysym.sym == SDLK_d) cube->position.x += 0.50f;
-            if (ev.key.keysym.sym == SDLK_c) cube->position.z += 0.50f;
-            if (ev.key.keysym.sym == SDLK_z) cube->position.z += -0.50f;
+            if (ev.key.keysym.sym == SDLK_w){
+                cube->position.y += 0.2;
+                aabb.min.y += 0.2;
+                aabb.max.y += 0.2;
+            }
+            if (ev.key.keysym.sym == SDLK_a)
+            {
+                cube->position.x += -0.2;
+                aabb.min.x += -0.2;
+                aabb.max.x += -0.2;
+            }
+            if (ev.key.keysym.sym == SDLK_s) 
+            { 
+                cube->position.y += -0.2;
+                aabb.min.y += -0.2;
+				aabb.max.y += -0.2;
+            }
+            if (ev.key.keysym.sym == SDLK_d) 
+            {    
+                cube->position.x += 0.2;
+                aabb.min.x += 0.2;    
+                aabb.max.x += 0.2;
+            }
+            if (ev.key.keysym.sym == SDLK_c) 
+             {   
+                cube->position.z += 2;
+                aabb.min.z += 2;
+                aabb.max.z += 2;
+
+          }  
+            if (ev.key.keysym.sym == SDLK_z)
+            {
+                cube->position.z += -0.2;
+                aabb.min.z += -0.2;
+                aabb.max.z += -0.2;
+            }
+            if (ev.key.keysym.sym == SDLK_p)
+            {
+                physics = 1;
+            }
+            if( ev.key.keysym.sym == SDLK_o )
+			{
+                physics = 0;
+			}
+
 
         }
         mouseFrame += 0.01;
@@ -169,6 +233,11 @@ void start_game()
 
             entity_think_all();
             entity_update_all();
+
+
+            if(collision_aabb_plane_test(aabb, plane2) || collision_aabb_aabb_test( aabb, aabb2 )) colliding = 1;
+			else colliding = 0;
+
 
             if( lastUpdate + 10 < SDL_GetTicks() ) // Fixed update, every 10ms
             {
@@ -186,9 +255,15 @@ void start_game()
                 //    network_server_receive();
                 //}
 
-
+                if (!colliding && physics)
+                {
+                    
+                    cube->position.z = cube->position.z - 0.098f;
+                    aabb.min.z = aabb.min.z - 0.098f;
+                    aabb.max.z = aabb.max.z - 0.098f;
+                    
+                }
                 lastUpdate = SDL_GetTicks();
-
             }
             static_entity_update_all();
 
@@ -224,6 +299,8 @@ void start_game()
             //frame_time_text = gf3d_sprite_from_sdl_texture(textSurface, "test.png", textSurface->w, textSurface->h, 1);
             //
             //gf3d_sprite_draw(frame_time_text, vector2d(250, 120), vector2d(1, 1), (Uint32)mouseFrame);
+
+            
 
         
         gf3d_vgraphics_render_end();

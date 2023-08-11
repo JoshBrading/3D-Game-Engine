@@ -148,7 +148,7 @@ void entity_update_fixed( Entity* self )
     vector3d_add( self->position, self->position, self->velocity );
     //vector3d_add(self->velocity,self->acceleration,self->velocity);
 
-    if( self->hasPhysics ) self->position.z = self->position.z - 0.098f;
+   // if( self->hasPhysics ) self->position.z = self->position.z - 0.098f;
     
 
     gfc_matrix_identity( self->modelMat );
